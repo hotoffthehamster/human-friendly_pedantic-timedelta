@@ -3,6 +3,12 @@
 # Copyright: © 2015-2018 Landon Bouma.
 # License: GPLv3. See LICENSE.
 
+""""""
+
+from __future__ import absolute_import, unicode_literals
+
+from gettext import gettext as _
+
 import time
 from datetime import timedelta
 from inflector import Inflector, English
@@ -176,38 +182,38 @@ class PedanticTimedelta(timedelta):
     #          wonder I decided to name this package "pedantic"!)
 
     def _units_and_scale(self):
+        is_abbrev = False
         if self.total_seconds() > PedanticTimedelta.SECS_IN_YEAR:
-            tm_unit = 'year'
+            tm_unit = _('year')
             s_scale = PedanticTimedelta.SECS_IN_YEAR
         elif self.total_seconds() > PedanticTimedelta.SECS_IN_MONTH:
-            tm_unit = 'month'
+            tm_unit = _('month')
             s_scale = PedanticTimedelta.SECS_IN_MONTH
         elif self.total_seconds() > PedanticTimedelta.SECS_IN_DAY:
-            tm_unit = 'day'
+            tm_unit = _('day')
             s_scale = PedanticTimedelta.SECS_IN_DAY
         elif self.total_seconds() > (60 * 60):  # secs/min * mins/hour = secs/hour
-            tm_unit = 'hour'
+            tm_unit = _('hour')
             s_scale = 60.0 * 60.0  # secs_in_hour
         elif self.total_seconds() > 60:  # secs/min = secs/min
-            tm_unit = 'min.'
+            tm_unit = _('min')
+            is_abbrev = True
             s_scale = 60.0  # secs_in_minute
         else:
-            tm_unit = 'sec.'
+            tm_unit = _('sec')
+            is_abbrev = True
             s_scale = 1.0  # secs_in_second
-        return tm_unit, s_scale
+        return tm_unit, is_abbrev, s_scale
 
     def time_format_scaled(self):
-        tm_unit, s_scale = self._units_and_scale()
+        tm_unit, is_abbrev, s_scale = self._units_and_scale()
         adj_time = self.total_seconds() / s_scale
-        time_fmtd = (
-            '{:.2} {}'.format(
-                # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
-                # inflectr.pluralize. Creating object ahead of time is not faster.
-                adj_time, Inflector(English).conditional_plural(
-                    adj_time, tm_unit,
-                ),
-            )
-        )
+        # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
+        # inflectr.pluralize. Creating object ahead of time is not faster.
+        tm_units = Inflector(English).conditional_plural(adj_time, tm_unit)
+        if is_abbrev:
+            tm_units += '.'
+        time_fmtd = ('{:.2f} {}'.format(adj_time, tm_units))
         return time_fmtd, s_scale, tm_unit
 
     # ***
