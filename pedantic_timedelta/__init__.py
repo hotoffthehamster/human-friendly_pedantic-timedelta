@@ -199,9 +199,8 @@ class PedanticTimedelta(timedelta):
     def time_format_scaled(self):
         tm_unit, s_scale = self._units_and_scale()
         adj_time = self.total_seconds() / s_scale
-        pass
         time_fmtd = (
-            '{:2} {}'.format(
+            '{:.2} {}'.format(
                 # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
                 # inflectr.pluralize. Creating object ahead of time is not faster.
                 adj_time, Inflector(English).conditional_plural(
