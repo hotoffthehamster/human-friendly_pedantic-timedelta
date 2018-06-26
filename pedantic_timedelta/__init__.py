@@ -183,19 +183,19 @@ class PedanticTimedelta(timedelta):
 
     def _units_and_scale(self):
         is_abbrev = False
-        if self.total_seconds() > PedanticTimedelta.SECS_IN_YEAR:
+        if self.total_seconds() >= PedanticTimedelta.SECS_IN_YEAR:
             tm_unit = _('year')
             s_scale = PedanticTimedelta.SECS_IN_YEAR
-        elif self.total_seconds() > PedanticTimedelta.SECS_IN_MONTH:
+        elif self.total_seconds() >= PedanticTimedelta.SECS_IN_MONTH:
             tm_unit = _('month')
             s_scale = PedanticTimedelta.SECS_IN_MONTH
-        elif self.total_seconds() > PedanticTimedelta.SECS_IN_DAY:
+        elif self.total_seconds() >= PedanticTimedelta.SECS_IN_DAY:
             tm_unit = _('day')
             s_scale = PedanticTimedelta.SECS_IN_DAY
-        elif self.total_seconds() > (60 * 60):  # secs/min * mins/hour = secs/hour
+        elif self.total_seconds() >= (60 * 60):  # secs/min * mins/hour = secs/hour
             tm_unit = _('hour')
             s_scale = 60.0 * 60.0  # secs_in_hour
-        elif self.total_seconds() > 60:  # secs/min = secs/min
+        elif self.total_seconds() >= 60:  # secs/min = secs/min
             tm_unit = _('min')
             is_abbrev = True
             s_scale = 60.0  # secs_in_minute
