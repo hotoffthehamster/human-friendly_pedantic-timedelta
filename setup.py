@@ -1,23 +1,29 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
-A setuptools based setup module.
+Packaging instruction for setup tools.
 
-See:
-    https://packaging.python.org/en/latest/distributing.html
-    https://github.com/pypa/sampleproject
+Refs:
+
+  https://setuptools.readthedocs.io/
+
+  https://packaging.python.org/en/latest/distributing.html
+
+  https://github.com/pypa/sampleproject
 """
 
-# Use open from codecs for consistent encoding.
-from codecs import open
+from io import open
 from os import path
 
-# Always prefer setuptools over distutils.
-from setuptools import find_packages, setup
+try:
+    from setuptools import find_packages, setup
+except ImportError:
+    from distutils.core import setup
 
 here = path.abspath(path.dirname(__file__))
 
-# Get the long description from the README file
+# Get the long description from the README file.
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
@@ -33,7 +39,7 @@ setup(
     #  https://packaging.python.org/en/latest/single_source_version.html
     version='0.0.1a1',
 
-    description="Human-friendly timedelta formatter",
+    description="Human-friendly Pedantic `timedelta` formatter",
     long_description=long_description,
 
     # Project page.
@@ -52,7 +58,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # For whom the project is intended.
         'Intended Audience :: Developers',
@@ -69,12 +75,15 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # Keywords for PyPI to display, and to use for search results.
     keywords='timedelta elapsed time duration human friendly string formatter',
 
     # Specify packages to install, either manually, or using find_packages().
+    # Alternatively, e.g.,
+    #   packages=['human-friendly_pedantic-timedelta', ],
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     # Alternatively, to distribute just a my_module.py, use py_modules:
     #   py_modules=["my_module"],
@@ -87,7 +96,8 @@ setup(
     # Additional groups of dependencies (e.g. development dependencies).
     # Install these using the following syntax, e.g.,
     #   `pip install -e .[dev,test]`
-    # FIXME: See also: requirements/*.pip
+    # DEV/BEWARE: See also: requirements/*.pip
+    # (lb): Is extras_require necessary, given `make develop`?
     extras_require={
         'dev': ['check-manifest'],
         'test': ['coverage'],
