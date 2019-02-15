@@ -19,6 +19,8 @@
 
 """Tests for ``human-friendly_pedantic-timedelta``."""
 
+from __future__ import absolute_import, unicode_literals
+
 
 def test_success():
     assert True
