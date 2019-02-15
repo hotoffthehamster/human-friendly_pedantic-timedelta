@@ -1,31 +1,23 @@
-#####################################
-Human-Friendly Pedantic ``timedelta``
-#####################################
+###############################################
+Human-Friendly Pedantic ``timedelta`` formatter
+###############################################
 
 A Python ``timedelta`` wrapper.
 
+.. image :: assets/hfpt-logo-lrg.png
+
 Install with ``pip``::
 
-    pip install human-friendly_pedantic-timedelta
+    pip3 install human-friendly_pedantic-timedelta
 
+For more installation options, read `docs/installation.rst`.
 
+Simple example::
 
-FIXME: Show examples with obvious values.
+    $ python3
+    >>> from pedantic_timedelta import PedanticTimedelta
+    >>> PedanticTimedelta(days=0.33).time_format_scaled()
+    # OUTPUT
+    # ('7.92 hours', 3600.0, 'hour')
 
-
-Usage::
-
-    $ py
-    >>> from pedantic_timedelta from friendly_delta
-    >>> from pedantic_timedelta from readable_delta
-    >>> friendly_delta.time_format_elapsed(datetime.now() - '1 day')
-
-
-.. code-block:: python
-
-    from pedantic_timedelta from friendly_delta
-
-    friendly_delta.time_format_elapsed(datetime.now() - '1 day')
-    # OUTPUT:
-    # 1 day
 
