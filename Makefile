@@ -77,8 +77,8 @@ clean-test:
 
 develop:
 	pip install -U pip setuptools wheel
-	pip install -U -e .
 	pip install -U -r requirements/dev.pip
+	pip install -U -e .
 
 lint:
 	flake8 setup.py pedantic_timedelta/ tests/
