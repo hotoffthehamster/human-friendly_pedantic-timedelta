@@ -106,6 +106,12 @@ view-coverage:
 	$(PYBROWSER) htmlcov/index.html
 
 docs:
+	# Ref:
+	#   https://www.python.org/dev/peps/pep-0257/
+	# (lb): We auto-generate docs/modules.rst and docs/pedantic_timedelta.rst
+	# so that :ref:`genindex` and :ref:`modindex`, etc., work, but we also
+	# maintain a separate docs/pedantic-timedelta.rst, so that we can specify
+	# special methods' docs to include, such as `__new__`'s.
 	/bin/rm -f docs/pedantic_timedelta.rst
 	/bin/rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ pedantic_timedelta
