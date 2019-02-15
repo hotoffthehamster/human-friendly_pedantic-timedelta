@@ -17,6 +17,8 @@
 #
 #   http://www.gnu.org/licenses/
 
+"""Tests for ``human-friendly_pedantic-timedelta``."""
+
 
 def test_success():
     assert True
