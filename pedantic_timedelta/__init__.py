@@ -149,10 +149,10 @@ class PedanticTimedelta(timedelta):
     # ***
 
     @staticmethod
-    def time_format_elapsed(time_then, time_now=None):
-        if time_now is None:
-            time_now = time.time()
-        secs_elapsed = time_now - time_then
+    def time_format_elapsed(secs_then, secs_now=None):
+        if secs_now is None:
+            secs_now = time.time()
+        secs_elapsed = secs_now - secs_then
         tdw = PedanticTimedelta(seconds=secs_elapsed)
         return tdw.time_format_scaled()[0]
 
