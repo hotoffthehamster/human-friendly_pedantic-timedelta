@@ -2,12 +2,33 @@
 
 language: python
 
-env:
-  - TOXENV=py27
-  - TOXENV=py34
-  - TOXENV=py35
-  - TOXENV=py36
-  - TOXENV=py37
+# NOTE: Cannot use separate env and python sections, like:
+#
+#       env:
+#         - TOXENV=py36
+#         - ...
+#
+#       python:
+#         - '3.6'
+#         - ...
+#
+# because travis-ci.org/.com will multiply those arrays,
+# resulting in every combination of version and environ.
+# Use a build matrix instead.
+
+matrix:
+  include:
+    # 2019-02-16: What, no 3.7 on Travis-ci.org?
+    #- python: '3.7'
+    #  env: TOXENV=py37
+    - python: '3.6'
+      env: TOXENV=py36
+    - python: '3.5'
+      env: TOXENV=py35
+    - python: '3.4'
+      env: TOXENV=py34
+    - python: '2.7'
+      env: TOXENV=py27
 
 install: pip install tox
 
