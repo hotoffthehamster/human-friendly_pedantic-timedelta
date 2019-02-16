@@ -18,8 +18,7 @@ Human-Friendly Pedantic ``timedelta``
   :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
   :alt: License Status
 
-.. image:: docs/assets/hfpt-logo-lrg.png
-   :align: left
+A Python ``timedelta`` wrapper which provides pedantic string formatting.
 
 Install with ``pip``::
 
@@ -36,4 +35,9 @@ Simple example::
     >>> PedanticTimedelta(days=0.33).time_format_scaled()
     # OUTPUT
     # ('7.92 hours', 3600.0, 'hour')
+
+|
+
+.. image:: docs/assets/hfpt-logo-lrg.png
+   :align: center
 
