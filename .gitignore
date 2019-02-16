@@ -18,3 +18,7 @@ docs/_build/
 docs/modules.rst
 docs/pedantic_timedelta.rst
 
+# `make coverage-html` output
+.coverage
+htmlcov/
+
