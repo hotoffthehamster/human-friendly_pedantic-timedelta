@@ -11,7 +11,6 @@ Basic
 
    README <readme>
    installation
-   Basic Usage <usage>
 
 ########
 Advanced
