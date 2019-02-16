@@ -2,6 +2,14 @@
 Human-Friendly Pedantic ``timedelta`` formatter
 ###############################################
 
+.. image:: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta.svg?branch=develop
+  :target: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta
+
+.. image:: https://codecov.io/gh/hotoffthehamster/human-friendly_pedantic-timedelta/branch/develop/graph/badge.svg
+  :target: https://codecov.io/gh/hotoffthehamster/human-friendly_pedantic-timedelta
+
+.. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
+
 A Python ``timedelta`` wrapper.
 
 .. image:: docs/assets/hfpt-logo-lrg.png
