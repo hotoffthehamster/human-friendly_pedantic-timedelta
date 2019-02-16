@@ -25,7 +25,9 @@ Install with ``pip``::
 
     pip3 install human-friendly_pedantic-timedelta
 
-For more installation options, read `docs/installation.rst`.
+For more options, read the
+`installation guide
+<https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/installation.html>`__.
 
 Simple example::
 
