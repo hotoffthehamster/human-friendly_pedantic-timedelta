@@ -8,7 +8,8 @@ History
 ==================
 
 * Bugfixes.
-* DX tools (flake8, isort, bumpversion, tox, docs).
+* Test coverage.
+* DX tools (flake8, isort, tox, docstrings, Sphinx docs).
 
 0.0.1a1 (2018-06-14)
 ====================

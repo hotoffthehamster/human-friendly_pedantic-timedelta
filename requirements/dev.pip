@@ -3,7 +3,6 @@
 -r ./docs.pip
 -r ./test.pip
 
-bumpversion==0.5.3
 flake8
 twine
 wheel==0.29.0
