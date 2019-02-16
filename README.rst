@@ -4,13 +4,19 @@ Human-Friendly Pedantic ``timedelta``
 
 .. image:: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta.svg?branch=develop
   :target: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta
+  :alt: Build Status
 
 .. image:: https://codecov.io/gh/hotoffthehamster/human-friendly_pedantic-timedelta/branch/develop/graph/badge.svg
   :target: https://codecov.io/gh/hotoffthehamster/human-friendly_pedantic-timedelta
+  :alt: Coverage Status
+
+.. image:: https://readthedocs.org/projects/human-friendly-pedantic-timedelta/badge/?version=latest
+  :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/
+  :alt: Documentation Status
 
 .. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
-
-A Python ``timedelta`` wrapper.
+  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
+  :alt: License Status
 
 .. image:: docs/assets/hfpt-logo-lrg.png
    :align: left
