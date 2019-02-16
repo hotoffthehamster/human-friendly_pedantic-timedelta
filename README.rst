@@ -4,7 +4,8 @@ Human-Friendly Pedantic ``timedelta`` formatter
 
 A Python ``timedelta`` wrapper.
 
-.. image :: assets/hfpt-logo-lrg.png
+.. image:: docs/assets/hfpt-logo-lrg.png
+   :align: left
 
 Install with ``pip``::
 
@@ -19,5 +20,4 @@ Simple example::
     >>> PedanticTimedelta(days=0.33).time_format_scaled()
     # OUTPUT
     # ('7.92 hours', 3600.0, 'hour')
-
 
