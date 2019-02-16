@@ -31,25 +31,25 @@ from pedantic_timedelta import PedanticTimedelta
 @freeze_time('2015-12-10 12:30')
 class TestPedanticTimedeltaTimeFormatElapsed(object):
     @pytest.mark.parametrize(('secs_then', 'secs_now', 'expectation'), [
-        #((datetime.datetime.now()  # BUGBUG: Set with true now, not freeze_time's!?
+        #  ((datetime.datetime.now() ... # BUGBUG: Set with true now, not freeze_time's!?
         (
-          (
-            datetime.datetime(2015, 12, 10, 12, 30, 0)
-            - datetime.timedelta(days=1)
-            - datetime.datetime.utcfromtimestamp(0)
-          ).total_seconds(), None, '1.00 day',
+            (
+                datetime.datetime(2015, 12, 10, 12, 30, 0)
+                - datetime.timedelta(days=1)
+                - datetime.datetime.utcfromtimestamp(0)
+            ).total_seconds(), None, '1.00 day',
         ),
         (
-          (
-            datetime.datetime(2015, 12, 10, 12, 30, 0)
-            - datetime.timedelta(minutes=2.5)
-            - datetime.datetime.utcfromtimestamp(0)
-          ).total_seconds(),
-          (
-            datetime.datetime(2015, 12, 10, 12, 30, 0)
-            - datetime.datetime.utcfromtimestamp(0)
-         ).total_seconds(),
-         '2.50 mins.',
+            (
+                datetime.datetime(2015, 12, 10, 12, 30, 0)
+                - datetime.timedelta(minutes=2.5)
+                - datetime.datetime.utcfromtimestamp(0)
+            ).total_seconds(),
+            (
+                datetime.datetime(2015, 12, 10, 12, 30, 0)
+                - datetime.datetime.utcfromtimestamp(0)
+            ).total_seconds(),
+            '2.50 mins.',
         ),
     ])
     def test_time_format_elapsed(self, secs_then, secs_now, expectation):
@@ -75,6 +75,7 @@ class TestPedanticTimedeltaTimeFormatScaledSeconds(object):
         assert tm_scale == exp_scale
         assert tm_units == exp_units
 
+
 class TestPedanticTimedeltaOverflowError(object):
     @pytest.mark.parametrize(('days'), [
         (1000000000),
@@ -82,7 +83,8 @@ class TestPedanticTimedeltaOverflowError(object):
     def test_time_format_elapsed(self, days):
         """Ensure that output matches expectation."""
         with pytest.raises(ValueError):
-          PedanticTimedelta(days=days)
+            PedanticTimedelta(days=days)
+
 
 class TestPedanticTimedeltaClassless(object):
     def test_time_format_elapsed(self):

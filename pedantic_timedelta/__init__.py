@@ -43,7 +43,8 @@ class PedanticTimedelta(timedelta):
         the same number of days, this class fudges the calculation,
         allowing one to specify imprecise time deltas.
 
-    :cvar DAYS_IN_YEAR: Mean tropical year (using Laskar's expression) on January 1, 2000.
+    :cvar DAYS_IN_YEAR: Mean tropical year (using Laskar's expression)
+                        on January 1, 2000.
 
     - https://en.wikipedia.org/wiki/Tropical_year
 
