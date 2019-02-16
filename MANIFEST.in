@@ -1,8 +1,17 @@
-# Include the license file
-include LICENSE
 include Makefile
+
+include LICENSE
 include *.rst
-include tox.ini
+
+# Skipping:
+#   include .coveragerc
+#   include .editorconfig
+#   include .gitignore
+#   include .ignore
+#   include .travis.yml
+#   include MANIFEST.in
+#   include tox.ini
+
 recursive-include requirements *.pip
 
 # Both `recursive-include` and `include` can behave similarly:
