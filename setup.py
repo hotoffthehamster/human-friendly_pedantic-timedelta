@@ -44,6 +44,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 requirements = [
+    # Vocabulary word pluralizer.
+    #  https://github.com/ixmatus/inflector
     'Inflector',
 ]
 
