@@ -59,6 +59,7 @@ setup(
 
     description="Human-friendly Pedantic `timedelta` formatter",
     long_description=long_description,
+    long_description_content_type="text/x-rst",
 
     # Project page.
     url='https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta',
