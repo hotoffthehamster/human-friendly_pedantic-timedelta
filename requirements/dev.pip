@@ -4,6 +4,7 @@
 -r ./test.pip
 
 flake8
-twine
-wheel==0.29.0
+setuptools >= 38.6.0
+twine >= 1.11.0
+wheel >= 0.31.0
 

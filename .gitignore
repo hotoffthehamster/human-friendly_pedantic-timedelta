@@ -22,3 +22,6 @@ docs/pedantic_timedelta.rst
 .coverage
 htmlcov/
 
+# pytest-cov / coverage / https://codecov.io
+coverage.xml
+
