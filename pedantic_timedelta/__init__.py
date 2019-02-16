@@ -213,7 +213,7 @@ class PedanticTimedelta(timedelta):
         tm_units = Inflector(English).conditional_plural(adj_time, tm_unit)
         if is_abbrev:
             tm_units += '.'
-        time_fmtd = ('{:.2f} {}'.format(adj_time, tm_units))
+        time_fmtd = ('{:.02f} {}'.format(adj_time, tm_units))
         return time_fmtd, s_scale, tm_unit
 
     # ***
