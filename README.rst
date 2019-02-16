@@ -1,6 +1,6 @@
-###############################################
-Human-Friendly Pedantic ``timedelta`` formatter
-###############################################
+#####################################
+Human-Friendly Pedantic ``timedelta``
+#####################################
 
 .. image:: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta.svg?branch=develop
   :target: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta

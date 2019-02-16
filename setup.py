@@ -57,7 +57,7 @@ setup(
     #  https://packaging.python.org/en/latest/single_source_version.html
     version='0.0.2',
 
-    description="Human-friendly Pedantic `timedelta` formatter",
+    description="Human-friendly Pedantic `timedelta`",
     long_description=long_description,
     long_description_content_type="text/x-rst",
 
