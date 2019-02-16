@@ -3,10 +3,7 @@
 -r ./docs.pip
 -r ./test.pip
 
-#bumpversion==0.5.3
 flake8
-#ipython==4.2.0
 twine
-#watchdog==0.8.3
 wheel==0.29.0
 

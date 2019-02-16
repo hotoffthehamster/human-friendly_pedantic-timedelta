@@ -5,9 +5,20 @@ dist/
 *.egg
 *.py[cod]
 __pycache__/
+.pytest_cache/
 *.so
 *~
 
 # due to using tox and pytest
 .tox
 .cache
+
+# Sphinx docs/.
+docs/_build/
+docs/modules.rst
+docs/pedantic_timedelta.rst
+
+# `make coverage-html` output
+.coverage
+htmlcov/
+

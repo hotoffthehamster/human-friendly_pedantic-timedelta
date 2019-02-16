@@ -1,26 +1,51 @@
 # -*- coding: utf-8 -*-
 
-"""
-A setuptools based setup module.
+# This file is part of 'human-friendly_pedantic-timedelta'.
+#
+# 'human-friendly_pedantic-timedelta' is free software: you can re-
+# distribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
+#
+# 'human-friendly_pedantic-timedelta' is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+# the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with 'human-friendly_pedantic-timedelta'. If not, visit:
+#
+#   http://www.gnu.org/licenses/
 
-See:
-    https://packaging.python.org/en/latest/distributing.html
-    https://github.com/pypa/sampleproject
+"""
+Packaging instruction for setup tools.
+
+Refs:
+
+  https://setuptools.readthedocs.io/
+
+  https://packaging.python.org/en/latest/distributing.html
+
+  https://github.com/pypa/sampleproject
 """
 
-# Always prefer setuptools over distutils.
-from setuptools import setup, find_packages
-# Use open from codecs for consistent encoding.
-from codecs import open
+from io import open
 from os import path
+
+try:
+    from setuptools import find_packages, setup
+except ImportError:
+    from distutils.core import setup
 
 here = path.abspath(path.dirname(__file__))
 
-# Get the long description from the README file
+# Get the long description from the README file.
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 requirements = [
+    # Vocabulary word pluralizer.
+    #  https://github.com/ixmatus/inflector
     'Inflector',
 ]
 
@@ -30,9 +55,9 @@ setup(
     # Versions should comply with PEP440. For a discussion on single-
     # sourcing the version across setup.py and the project code, see
     #  https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.1a1',
+    version='0.0.1',
 
-    description="Human-friendly timedelta formatter",
+    description="Human-friendly Pedantic `timedelta` formatter",
     long_description=long_description,
 
     # Project page.
@@ -51,7 +76,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # For whom the project is intended.
         'Intended Audience :: Developers',
@@ -68,12 +93,15 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 
     # Keywords for PyPI to display, and to use for search results.
     keywords='timedelta elapsed time duration human friendly string formatter',
 
     # Specify packages to install, either manually, or using find_packages().
+    # Alternatively, e.g.,
+    #   packages=['human-friendly_pedantic-timedelta', ],
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     # Alternatively, to distribute just a my_module.py, use py_modules:
     #   py_modules=["my_module"],
@@ -86,7 +114,8 @@ setup(
     # Additional groups of dependencies (e.g. development dependencies).
     # Install these using the following syntax, e.g.,
     #   `pip install -e .[dev,test]`
-    # FIXME: See also: requirements/*.pip
+    # DEV/BEWARE: See also: requirements/*.pip
+    # (lb): Is extras_require necessary, given `make develop`?
     extras_require={
         'dev': ['check-manifest'],
         'test': ['coverage'],

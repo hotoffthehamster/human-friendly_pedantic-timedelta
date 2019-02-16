@@ -1,7 +1,27 @@
 # -*- coding: utf-8 -*-
-#  vim:tw=0:ts=4:sw=4:et
-# Copyright: © 2015-2018 Landon Bouma.
-# License: GPLv3. See LICENSE.
+
+# This file is part of 'human-friendly_pedantic-timedelta'.
+#
+# 'human-friendly_pedantic-timedelta' is free software: you can re-
+# distribute it and/or modify it under the terms of the GNU General
+# Public License as published by the Free Software Foundation, either
+# version 3 of the License, or (at your option) any later version.
+#
+# 'human-friendly_pedantic-timedelta' is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+# the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with 'human-friendly_pedantic-timedelta'. If not, visit:
+#
+#   http://www.gnu.org/licenses/
+
+"""A Human-friendly Pedantic `timedelta` formatter"""
+
+from __future__ import absolute_import, unicode_literals
+
+from gettext import gettext as _
 
 import time
 from datetime import timedelta
@@ -12,12 +32,23 @@ log = logging.getLogger('timedelta_wrap')
 
 
 class PedanticTimedelta(timedelta):
-    # Contains fcns. cxpx'ed from Cyclopath's pyserver/util_/misc.py
+    """
+    A :func:`datetime.timedelta` formatter that uses progressive time unit
+    labels to prepare a delta time value for output.
 
-    # CAVEAT: Unlike datetime.timedelta, which accepts weeks but not
-    # months or years because not every month nor every year has the
-    # same number of days, this script fudges the calculation so we
-    # can pretty-print an approximate elapsed time.
+    .. NOTE::
+
+        Unlike :func:`datetime.timedelta`, which accepts weeks but not
+        months, nor years, because not every month, nor every year has
+        the same number of days, this class fudges the calculation,
+        allowing one to specify imprecise time deltas.
+
+    :cvar DAYS_IN_YEAR: Mean tropical year (using Laskar's expression)
+                        on January 1, 2000.
+
+    - https://en.wikipedia.org/wiki/Tropical_year
+
+    """
 
     # https://en.wikipedia.org/wiki/Tropical_year
     #  Laskar's expression: Mean tropical year on 1/1/2000 was 365.242189 days.
@@ -28,15 +59,26 @@ class PedanticTimedelta(timedelta):
     #  SECS_IN_YEAR = time_in_year.total_seconds() # 31556926
     #  DAYS_IN_YEAR = SECS_IN_YEAR / 24.0 / 60.0 / 60.0 # 365.2421991
     # Calculating from scholarly numbers.
-    DAYS_IN_YEAR = 365.242189  # Laskar's expression.
-    SECS_IN_DAY = 86400  # 1/86,400 is mean of solar day.
+    DAYS_IN_YEAR = 365.242189
+    """
+    Mean tropical year (using Laskar's expression) on 1/1/2000.
+    - https://en.wikipedia.org/wiki/Tropical_year
+    """
+
+    SECS_IN_DAY = 86400
+    """1/86,400 is mean of solar day."""
+
     SECS_IN_YEAR = DAYS_IN_YEAR * SECS_IN_DAY  # 31556925.1296
+    """DAYS_IN_YEAR * SECS_IN_DAY"""
 
     # Average number of days in a month.
     # MAGIC_NUMBERS: 7 months are 31 days long, 4 are 40, and one is 28ish.
     #  avg_month_days = (7*31 + 4*30 + 28.25) / 12.0 # 30.4375
     DAYS_IN_MONTH = DAYS_IN_YEAR / 12.0  # 30.436849
+    """DAYS_IN_YEAR / 12.0"""
+
     SECS_IN_MONTH = SECS_IN_YEAR / 12.0  # 2629743.7608
+    """SECS_IN_YEAR / 12.0"""
 
     # ***
 
@@ -69,6 +111,51 @@ class PedanticTimedelta(timedelta):
         eons=0,
         gigaannums=0
     ):
+        """A wrapper around `datetime.timedelta.__new__`
+        that recognizes additional time units, including
+        'months', 'years', and much, much more.
+
+        In addition to the parent class's parameters -- *days*, *seconds*,
+        *microseconds*, *minutes*, *hours*, and *weeks* -- the following
+        constructor parameters are recognized.
+
+        (Note that all arguments are optional and default to 0.
+        Arguments may be integers or floats, and may be positive or negative.
+        Only days, seconds and microseconds are stored internally.
+        Other arguments are converted to those units and added together.)
+
+        :param fortnights: 14 days each.
+        :param months: Approximated as :py:attr:`DAYS_IN_MONTH`.
+        :param seasons: ¼ year each.
+        :param years: Approximated as :py:attr:`DAYS_IN_YEAR`.
+        :param bienniums: 2 years each.
+        :param decades: 10 years each.
+        :param jubilees: 50 years each.
+        :param centuries: 100 years each.
+        :param millenniums: 1000 years each.
+        :param ages: 1000000 years each.
+        :param megaannums: 1000000 years each.
+        :param epochs: 10000000 years each.
+        :param eras: 100000000 years each.
+        :param eons: 500000000 years each.
+        :param gigaannums: 1000000000 years each.
+
+        :type fortnights: float
+        :type months: float
+        :type seasons: float
+        :type years: float
+        :type bienniums: float
+        :type decades: float
+        :type jubilees: float
+        :type centuries: float
+        :type millenniums: float
+        :type ages: float
+        :type megaannums: float
+        :type epochs: float
+        :type eras: float
+        :type eons: float
+        :type gigaannums: float
+        """
         def new_timedelta():
             totaled_days = as_days()
             must_not_be_more_than_2737909_years(totaled_days)
@@ -143,72 +230,74 @@ class PedanticTimedelta(timedelta):
     # ***
 
     @staticmethod
-    def time_format_elapsed(time_then, time_now=None):
-        if time_now is None:
-            time_now = time.time()
-        secs_elapsed = time_now - time_then
+    def time_format_elapsed(secs_then, secs_now=None):
+        """Format elapsed time pedantically.
+
+        :param secs_then: seconds at time of event (e.g., ``time.time()``).
+        :type secs_then: float
+
+        :param secs_now: seconds from which to calculate elapsed time.
+             Defaults to now if not specified (in which case `secs_then`
+             should be represented as seconds since epoch).
+        :type secs_now: float
+
+        :return: elapsed time formatted using single unit of time
+        :rtype: string
+        """
+        if secs_now is None:
+            secs_now = time.time()
+        secs_elapsed = secs_now - secs_then
         tdw = PedanticTimedelta(seconds=secs_elapsed)
         return tdw.time_format_scaled()[0]
 
-    # FIXME: Move this fcn. into its own class like datetime.timedelta?
-    #        Or extend datetime.timedelta?
-    #        Note that timedelta converts the difference between two
-    #        dates or times into number of days, seconds, and microseconds.
-    #        We could extend timedelta and rename this fcn, e.g.,
-    #         pretty_print(), or something...
-
-    # FIXME: (lb): I bet there's a better way to do this so that calendar
-    #          dates are accounted for, e.g., this function will not report
-    #          1/1/2000 00:00 to 1/1/2001 00:00 as exactly 1 year.
-    #        We could use library to do date match, and then all we'd
-    #          need to calculate here is math for one day, or maybe the
-    #          month. But don't calculate anything more than the current
-    #          month's worth of days? So, would 2/10 to 3/10 be "1 month",
-    #          and 3/10 to 4/10 also be "1 month"? Or should we never use
-    #          months, but use weeks and years instead??? Month would work
-    #          if we counted elapsed months using day of month, rather than
-    #          seconds! There's gotta be a calendar math library to help us
-    #          out...
-    #        (Considering month math, would, e.g., 1/1/2000 to 4/1/2000
-    #          be reported as exactly 3 months? But then 1/28 to 2/28
-    #          would be reported as "1 month", but 2/28 to 3/28 would
-    #          not be "1 month" (though it would be "4 weeks"...). No
-    #          wonder I decided to name this package "pedantic"!)
-
     def _units_and_scale(self):
-        if self.total_seconds() > PedanticTimedelta.SECS_IN_YEAR:
-            tm_unit = 'year'
+        """Private method determines the maximum scale that can be used to
+        represent a time value as 1 of more of a unit, e.g., 1 second, 59
+        minutes, 15 days, but never 61 seconds, 90 minutes, 35 days, etc.
+        """
+        is_abbrev = False
+        if self.total_seconds() >= PedanticTimedelta.SECS_IN_YEAR:
+            tm_unit = _('year')
             s_scale = PedanticTimedelta.SECS_IN_YEAR
-        elif self.total_seconds() > PedanticTimedelta.SECS_IN_MONTH:
-            tm_unit = 'month'
+        elif self.total_seconds() >= PedanticTimedelta.SECS_IN_MONTH:
+            tm_unit = _('month')
             s_scale = PedanticTimedelta.SECS_IN_MONTH
-        elif self.total_seconds() > PedanticTimedelta.SECS_IN_DAY:
-            tm_unit = 'day'
+        elif self.total_seconds() >= PedanticTimedelta.SECS_IN_DAY:
+            tm_unit = _('day')
             s_scale = PedanticTimedelta.SECS_IN_DAY
-        elif self.total_seconds() > (60 * 60):  # secs/min * mins/hour = secs/hour
-            tm_unit = 'hour'
+        elif self.total_seconds() >= (60 * 60):  # secs/min * mins/hour = secs/hour
+            tm_unit = _('hour')
             s_scale = 60.0 * 60.0  # secs_in_hour
-        elif self.total_seconds() > 60:  # secs/min = secs/min
-            tm_unit = 'min.'
+        elif self.total_seconds() >= 60:  # secs/min = secs/min
+            tm_unit = _('min')
+            is_abbrev = True
             s_scale = 60.0  # secs_in_minute
         else:
-            tm_unit = 'sec.'
+            tm_unit = _('sec')
+            is_abbrev = True
             s_scale = 1.0  # secs_in_second
-        return tm_unit, s_scale
+        return tm_unit, is_abbrev, s_scale
 
     def time_format_scaled(self):
-        tm_unit, s_scale = self._units_and_scale()
+        """Format the instance's elapsed time using the largest single
+        unit of time where value is 1 or more (unless the elapsed time
+        is less than a single second, in which case the value will be
+        expressed in seconds).
+
+        :return: tuple containing (formatted time, seconds in unit, time unit)
+        :rtype: tuple(string, seconds-per-unit, time-unit)
+
+        >>> PedanticTimedelta(days=0.33).time_format_scaled()
+        ('7.92 hours', 3600.0, 'hour')
+        """
+        tm_unit, is_abbrev, s_scale = self._units_and_scale()
         adj_time = self.total_seconds() / s_scale
-        pass
-        time_fmtd = (
-            '{:2} {}'.format(
-                # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
-                # inflectr.pluralize. Creating object ahead of time is not faster.
-                adj_time, Inflector(English).conditional_plural(
-                    adj_time, tm_unit,
-                ),
-            )
-        )
+        # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
+        # inflectr.pluralize. Creating object ahead of time is not faster.
+        tm_units = Inflector(English).conditional_plural(adj_time, tm_unit)
+        if is_abbrev:
+            tm_units += '.'
+        time_fmtd = ('{:.02f} {}'.format(adj_time, tm_units))
         return time_fmtd, s_scale, tm_unit
 
     # ***

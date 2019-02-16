@@ -1,9 +1,20 @@
 # Include the license file
 include LICENSE
+include Makefile
+include *.rst
+include tox.ini
+recursive-include requirements *.pip
 
-# Include the data files
-#recursive-include data *
+# Both `recursive-include` and `include` can behave similarly:
+#   recursive-include tests *.py
+#   include tests*/*.py
+include tests/*.py
 
-# If using Python 2.6 or less, then have to include package data, even though
-# it's already declared in setup.py
-# include sample/*.dat
+include docs/*.bat
+include docs/*.png
+include docs/*.py
+include docs/*.rst
+include docs/Makefile
+include docs/assets/*.png
+recursive-include docs/docs/assets *.png
+
