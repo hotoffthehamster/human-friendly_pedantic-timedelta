@@ -14,13 +14,13 @@ Human-Friendly Pedantic ``timedelta``
   :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/
   :alt: Documentation Status
 
+.. image:: https://img.shields.io/github/release/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
+  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/releases
+  :alt: Release Status
+
 .. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
   :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
   :alt: License Status
-
-.. image:: https://img.shields.io/github/release/hotoffthehamster/human-friendly_pedantic-timedelta.svg
-  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
-  :alt: Release Status
 
 A Python ``timedelta`` wrapper which provides pedantic string formatting.
 
