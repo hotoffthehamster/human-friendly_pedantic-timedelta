@@ -2,13 +2,6 @@
 Contributing
 ############
 
-Contributions are welcome, and they are greatly appreciated!
-
-Every little bit helps, and credit will always be given (if so desired).
-
-.. contents::
-   :depth: 2
-
 .. |virtualenvwrapper| replace:: ``virtualenvwrapper``
 .. _virtualenvwrapper: https://pypi.org/project/virtualenvwrapper/
 
@@ -21,9 +14,17 @@ Every little bit helps, and credit will always be given (if so desired).
 .. |tox| replace:: ``tox``
 .. _tox: https://tox.readthedocs.io/en/latest/
 
-==================
-Ways to Contribute
-==================
+.. contents:: Contributing Contents
+   :depth: 2
+   :local:
+
+Contributions are welcome, and they are greatly appreciated!
+
+Every little bit helps, and credit will always be given (if so desired).
+
+=================
+How to Contribute
+=================
 
 You can contribute in many ways:
 

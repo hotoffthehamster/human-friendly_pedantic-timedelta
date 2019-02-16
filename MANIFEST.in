@@ -27,3 +27,5 @@ include docs/Makefile
 include docs/assets/*.png
 recursive-include docs/docs/assets *.png
 
+recursive-include docs/_build/html *.*
+

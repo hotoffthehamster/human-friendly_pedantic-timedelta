@@ -1,0 +1,424 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pedantic_timedelta &#8212; human-friendly_pedantic-timedelta 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/hfpt-logo-fav.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for pedantic_timedelta</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># This file is part of &#39;human-friendly_pedantic-timedelta&#39;.</span>
+<span class="c1">#</span>
+<span class="c1"># &#39;human-friendly_pedantic-timedelta&#39; is free software: you can re-</span>
+<span class="c1"># distribute it and/or modify it under the terms of the GNU General</span>
+<span class="c1"># Public License as published by the Free Software Foundation, either</span>
+<span class="c1"># version 3 of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># &#39;human-friendly_pedantic-timedelta&#39; is distributed in the hope that</span>
+<span class="c1"># it will be useful, but WITHOUT ANY WARRANTY; without even the implied</span>
+<span class="c1"># warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See</span>
+<span class="c1"># the GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with &#39;human-friendly_pedantic-timedelta&#39;. If not, visit:</span>
+<span class="c1">#</span>
+<span class="c1">#   http://www.gnu.org/licenses/</span>
+
+<span class="sd">&quot;&quot;&quot;A Human-friendly Pedantic `timedelta` formatter&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">gettext</span> <span class="k">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">inflector</span> <span class="k">import</span> <span class="n">Inflector</span><span class="p">,</span> <span class="n">English</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;timedelta_wrap&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PedanticTimedelta"><a class="viewcode-back" href="../pedantic_timedelta.html#pedantic_timedelta.PedanticTimedelta">[docs]</a><span class="k">class</span> <span class="nc">PedanticTimedelta</span><span class="p">(</span><span class="n">timedelta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A :func:`datetime.timedelta` formatter that uses progressive time unit</span>
+<span class="sd">    labels to prepare a delta time value for output.</span>
+
+<span class="sd">    .. NOTE::</span>
+
+<span class="sd">        Unlike :func:`datetime.timedelta`, which accepts weeks but not</span>
+<span class="sd">        months, nor years, because not every month, nor every year has</span>
+<span class="sd">        the same number of days, this class fudges the calculation,</span>
+<span class="sd">        allowing one to specify imprecise time deltas.</span>
+
+<span class="sd">    :cvar DAYS_IN_YEAR: Mean tropical year (using Laskar&#39;s expression)</span>
+<span class="sd">                        on January 1, 2000.</span>
+
+<span class="sd">    - https://en.wikipedia.org/wiki/Tropical_year</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># https://en.wikipedia.org/wiki/Tropical_year</span>
+    <span class="c1">#  Laskar&#39;s expression: Mean tropical year on 1/1/2000 was 365.242189 days.</span>
+    <span class="c1">#  Gregorian calendar average year is 365.2425 days, matching northward</span>
+    <span class="c1">#  (March) equinox year of 365.2424 days (as of January 2000).</span>
+    <span class="c1"># Calculating from rough estimate of 365d 5h 48m 46s per year.</span>
+    <span class="c1">#  time_in_year = timedelta(days=365, hours=5, minutes=48, seconds=46)</span>
+    <span class="c1">#  SECS_IN_YEAR = time_in_year.total_seconds() # 31556926</span>
+    <span class="c1">#  DAYS_IN_YEAR = SECS_IN_YEAR / 24.0 / 60.0 / 60.0 # 365.2421991</span>
+    <span class="c1"># Calculating from scholarly numbers.</span>
+    <span class="n">DAYS_IN_YEAR</span> <span class="o">=</span> <span class="mf">365.242189</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mean tropical year (using Laskar&#39;s expression) on 1/1/2000.</span>
+<span class="sd">    - https://en.wikipedia.org/wiki/Tropical_year</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">SECS_IN_DAY</span> <span class="o">=</span> <span class="mi">86400</span>
+    <span class="sd">&quot;&quot;&quot;1/86,400 is mean of solar day.&quot;&quot;&quot;</span>
+
+    <span class="n">SECS_IN_YEAR</span> <span class="o">=</span> <span class="n">DAYS_IN_YEAR</span> <span class="o">*</span> <span class="n">SECS_IN_DAY</span>  <span class="c1"># 31556925.1296</span>
+    <span class="sd">&quot;&quot;&quot;DAYS_IN_YEAR * SECS_IN_DAY&quot;&quot;&quot;</span>
+
+    <span class="c1"># Average number of days in a month.</span>
+    <span class="c1"># MAGIC_NUMBERS: 7 months are 31 days long, 4 are 40, and one is 28ish.</span>
+    <span class="c1">#  avg_month_days = (7*31 + 4*30 + 28.25) / 12.0 # 30.4375</span>
+    <span class="n">DAYS_IN_MONTH</span> <span class="o">=</span> <span class="n">DAYS_IN_YEAR</span> <span class="o">/</span> <span class="mf">12.0</span>  <span class="c1"># 30.436849</span>
+    <span class="sd">&quot;&quot;&quot;DAYS_IN_YEAR / 12.0&quot;&quot;&quot;</span>
+
+    <span class="n">SECS_IN_MONTH</span> <span class="o">=</span> <span class="n">SECS_IN_YEAR</span> <span class="o">/</span> <span class="mf">12.0</span>  <span class="c1"># 2629743.7608</span>
+    <span class="sd">&quot;&quot;&quot;SECS_IN_YEAR / 12.0&quot;&quot;&quot;</span>
+
+    <span class="c1"># ***</span>
+
+    <span class="c1"># We override __new__ and not __init__ because we want to be</span>
+    <span class="c1"># called before timedelta.__init__.</span>
+<div class="viewcode-block" id="PedanticTimedelta.__new__"><a class="viewcode-back" href="../pedantic-timedelta.html#pedantic_timedelta.PedanticTimedelta.__new__">[docs]</a>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># Part of timedelta:</span>
+        <span class="n">days</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">microseconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">milliseconds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">minutes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">hours</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">weeks</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="c1"># Our additions:</span>
+        <span class="n">fortnights</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">months</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">seasons</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">years</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">bienniums</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">decades</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">jubilees</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">centuries</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">millenniums</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">ages</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">megaannums</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">eras</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">eons</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">gigaannums</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A wrapper around `datetime.timedelta.__new__`</span>
+<span class="sd">        that recognizes additional time units, including</span>
+<span class="sd">        &#39;months&#39;, &#39;years&#39;, and much, much more.</span>
+
+<span class="sd">        In addition to the parent class&#39;s parameters -- *days*, *seconds*,</span>
+<span class="sd">        *microseconds*, *minutes*, *hours*, and *weeks* -- the following</span>
+<span class="sd">        constructor parameters are recognized.</span>
+
+<span class="sd">        (Note that all arguments are optional and default to 0.</span>
+<span class="sd">        Arguments may be integers or floats, and may be positive or negative.</span>
+<span class="sd">        Only days, seconds and microseconds are stored internally.</span>
+<span class="sd">        Other arguments are converted to those units and added together.)</span>
+
+<span class="sd">        :param fortnights: 14 days each.</span>
+<span class="sd">        :param months: Approximated as :py:attr:`DAYS_IN_MONTH`.</span>
+<span class="sd">        :param seasons: ¼ year each.</span>
+<span class="sd">        :param years: Approximated as :py:attr:`DAYS_IN_YEAR`.</span>
+<span class="sd">        :param bienniums: 2 years each.</span>
+<span class="sd">        :param decades: 10 years each.</span>
+<span class="sd">        :param jubilees: 50 years each.</span>
+<span class="sd">        :param centuries: 100 years each.</span>
+<span class="sd">        :param millenniums: 1000 years each.</span>
+<span class="sd">        :param ages: 1000000 years each.</span>
+<span class="sd">        :param megaannums: 1000000 years each.</span>
+<span class="sd">        :param epochs: 10000000 years each.</span>
+<span class="sd">        :param eras: 100000000 years each.</span>
+<span class="sd">        :param eons: 500000000 years each.</span>
+<span class="sd">        :param gigaannums: 1000000000 years each.</span>
+
+<span class="sd">        :type fortnights: float</span>
+<span class="sd">        :type months: float</span>
+<span class="sd">        :type seasons: float</span>
+<span class="sd">        :type years: float</span>
+<span class="sd">        :type bienniums: float</span>
+<span class="sd">        :type decades: float</span>
+<span class="sd">        :type jubilees: float</span>
+<span class="sd">        :type centuries: float</span>
+<span class="sd">        :type millenniums: float</span>
+<span class="sd">        :type ages: float</span>
+<span class="sd">        :type megaannums: float</span>
+<span class="sd">        :type epochs: float</span>
+<span class="sd">        :type eras: float</span>
+<span class="sd">        :type eons: float</span>
+<span class="sd">        :type gigaannums: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">new_timedelta</span><span class="p">():</span>
+            <span class="n">totaled_days</span> <span class="o">=</span> <span class="n">as_days</span><span class="p">()</span>
+            <span class="n">must_not_be_more_than_2737909_years</span><span class="p">(</span><span class="n">totaled_days</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">new_object</span><span class="p">(</span><span class="n">totaled_days</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">as_days</span><span class="p">():</span>
+            <span class="n">totaled_days</span> <span class="o">=</span> <span class="n">days</span>
+            <span class="c1"># Ref: https://en.wikipedia.org/wiki/Unit_of_time</span>
+            <span class="c1"># FIXME: 2015.02.04: Needs testing, especially because overflows</span>
+            <span class="c1">#        might mean parent class can only represent so many days.</span>
+            <span class="n">n_years</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">n_years</span> <span class="o">+=</span>   <span class="mi">1000000000</span> <span class="o">*</span> <span class="n">gigaannums</span>    <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>    <span class="mi">500000000</span> <span class="o">*</span> <span class="n">eons</span>          <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>    <span class="mi">100000000</span> <span class="o">*</span> <span class="n">eras</span>          <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>     <span class="mi">10000000</span> <span class="o">*</span> <span class="n">epochs</span>        <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>      <span class="mi">1000000</span> <span class="o">*</span> <span class="n">megaannums</span>    <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>      <span class="mi">1000000</span> <span class="o">*</span> <span class="n">ages</span>          <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>         <span class="mi">1000</span> <span class="o">*</span> <span class="n">millenniums</span>   <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>          <span class="mi">100</span> <span class="o">*</span> <span class="n">centuries</span>     <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>           <span class="mi">50</span> <span class="o">*</span> <span class="n">jubilees</span>      <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>           <span class="mi">10</span> <span class="o">*</span> <span class="n">decades</span>       <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>            <span class="mi">2</span> <span class="o">*</span> <span class="n">bienniums</span>     <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>            <span class="mi">1</span> <span class="o">*</span> <span class="n">years</span>         <span class="c1"># noqa: E222</span>
+            <span class="n">n_years</span> <span class="o">+=</span>         <span class="mf">0.25</span> <span class="o">*</span> <span class="n">seasons</span>       <span class="c1"># noqa: E222</span>
+            <span class="n">n_days</span> <span class="o">=</span> <span class="n">n_years</span> <span class="o">*</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">DAYS_IN_YEAR</span>
+            <span class="n">n_days</span> <span class="o">+=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">DAYS_IN_MONTH</span> <span class="o">*</span> <span class="n">months</span>
+            <span class="n">n_days</span> <span class="o">+=</span>            <span class="mi">14</span> <span class="o">*</span> <span class="n">fortnights</span>    <span class="c1"># noqa: E222</span>
+            <span class="n">totaled_days</span> <span class="o">+=</span> <span class="n">n_days</span>
+            <span class="k">return</span> <span class="n">totaled_days</span>
+
+        <span class="k">def</span> <span class="nf">must_not_be_more_than_2737909_years</span><span class="p">(</span><span class="n">totaled_days</span><span class="p">):</span>
+            <span class="c1"># Watch out for OverflowError.</span>
+            <span class="c1">#   &gt;&gt;&gt; timedelta(math.pow(2,31))</span>
+            <span class="c1">#   OverflowError: normalized days too large to fit in a C int</span>
+            <span class="c1"># Also note different (but similar) errors, one being more helpful.</span>
+            <span class="c1">#   &gt;&gt;&gt; timedelta(math.pow(2,30))</span>
+            <span class="c1">#   OverflowError: days=1073741824; must have magnitude &lt;= 999999999</span>
+            <span class="c1"># Checking the more better error message:</span>
+            <span class="c1">#   &gt;&gt;&gt; timedelta(999999999)</span>
+            <span class="c1">#   datetime.timedelta(999999999)</span>
+            <span class="c1">#   &gt;&gt;&gt; timedelta(1000000000)</span>
+            <span class="c1">#   OverflowError: days=1000000000; must have magnitude &lt;= 999999999</span>
+            <span class="c1">#</span>
+            <span class="c1"># BUG nnnn/WONTFIX: Support any int and not just C ints.</span>
+            <span class="c1">#     999999999/365.242189 = 2737909.3</span>
+            <span class="c1">#     so we can only support megaannums and nothing more.</span>
+            <span class="c1">#     (At least total_seconds() works &#39;til infinity!)</span>
+            <span class="k">if</span> <span class="n">totaled_days</span> <span class="o">&gt;</span> <span class="mi">999999999</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;pedantic_timedelta:&#39;</span>
+                    <span class="s1">&#39; That many days is not supported.&#39;</span>
+                    <span class="s1">&#39; Try &lt;= 999999999&#39;</span>
+                <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">new_object</span><span class="p">(</span><span class="n">totaled_days</span><span class="p">):</span>
+            <span class="n">td_cls</span> <span class="o">=</span> <span class="bp">cls</span>
+            <span class="k">if</span> <span class="n">td_cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">td_cls</span> <span class="o">=</span> <span class="n">timedelta</span>
+            <span class="k">return</span> <span class="n">timedelta</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span>
+                <span class="n">td_cls</span><span class="p">,</span>
+                <span class="n">days</span><span class="o">=</span><span class="n">totaled_days</span><span class="p">,</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
+                <span class="n">microseconds</span><span class="o">=</span><span class="n">microseconds</span><span class="p">,</span>
+                <span class="n">milliseconds</span><span class="o">=</span><span class="n">milliseconds</span><span class="p">,</span>
+                <span class="n">minutes</span><span class="o">=</span><span class="n">minutes</span><span class="p">,</span>
+                <span class="n">hours</span><span class="o">=</span><span class="n">hours</span><span class="p">,</span>
+                <span class="n">weeks</span><span class="o">=</span><span class="n">weeks</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new_timedelta</span><span class="p">()</span></div>
+
+    <span class="c1"># ***</span>
+
+<div class="viewcode-block" id="PedanticTimedelta.time_format_elapsed"><a class="viewcode-back" href="../pedantic_timedelta.html#pedantic_timedelta.PedanticTimedelta.time_format_elapsed">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">time_format_elapsed</span><span class="p">(</span><span class="n">secs_then</span><span class="p">,</span> <span class="n">secs_now</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format elapsed time pedantically.</span>
+
+<span class="sd">        :param secs_then: seconds at time of event (e.g., ``time.time()``).</span>
+<span class="sd">        :type secs_then: float</span>
+
+<span class="sd">        :param secs_now: seconds from which to calculate elapsed time.</span>
+<span class="sd">             Defaults to now if not specified (in which case `secs_then`</span>
+<span class="sd">             should be represented as seconds since epoch).</span>
+<span class="sd">        :type secs_now: float</span>
+
+<span class="sd">        :return: elapsed time formatted using single unit of time</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">secs_now</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">secs_now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">secs_elapsed</span> <span class="o">=</span> <span class="n">secs_now</span> <span class="o">-</span> <span class="n">secs_then</span>
+        <span class="n">tdw</span> <span class="o">=</span> <span class="n">PedanticTimedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">secs_elapsed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdw</span><span class="o">.</span><span class="n">time_format_scaled</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">_units_and_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Private method determines the maximum scale that can be used to</span>
+<span class="sd">        represent a time value as 1 of more of a unit, e.g., 1 second, 59</span>
+<span class="sd">        minutes, 15 days, but never 61 seconds, 90 minutes, 35 days, etc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">is_abbrev</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_YEAR</span><span class="p">:</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_YEAR</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_MONTH</span><span class="p">:</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">)</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_MONTH</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_DAY</span><span class="p">:</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">)</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="n">PedanticTimedelta</span><span class="o">.</span><span class="n">SECS_IN_DAY</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">):</span>  <span class="c1"># secs/min * mins/hour = secs/hour</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">)</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="mf">60.0</span> <span class="o">*</span> <span class="mf">60.0</span>  <span class="c1"># secs_in_hour</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">:</span>  <span class="c1"># secs/min = secs/min</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
+            <span class="n">is_abbrev</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="mf">60.0</span>  <span class="c1"># secs_in_minute</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tm_unit</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;sec&#39;</span><span class="p">)</span>
+            <span class="n">is_abbrev</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">s_scale</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># secs_in_second</span>
+        <span class="k">return</span> <span class="n">tm_unit</span><span class="p">,</span> <span class="n">is_abbrev</span><span class="p">,</span> <span class="n">s_scale</span>
+
+<div class="viewcode-block" id="PedanticTimedelta.time_format_scaled"><a class="viewcode-back" href="../pedantic_timedelta.html#pedantic_timedelta.PedanticTimedelta.time_format_scaled">[docs]</a>    <span class="k">def</span> <span class="nf">time_format_scaled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format the instance&#39;s elapsed time using the largest single</span>
+<span class="sd">        unit of time where value is 1 or more (unless the elapsed time</span>
+<span class="sd">        is less than a single second, in which case the value will be</span>
+<span class="sd">        expressed in seconds).</span>
+
+<span class="sd">        :return: tuple containing (formatted time, seconds in unit, time unit)</span>
+<span class="sd">        :rtype: tuple(string, seconds-per-unit, time-unit)</span>
+
+<span class="sd">        &gt;&gt;&gt; PedanticTimedelta(days=0.33).time_format_scaled()</span>
+<span class="sd">        (&#39;7.92 hours&#39;, 3600.0, &#39;hour&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tm_unit</span><span class="p">,</span> <span class="n">is_abbrev</span><span class="p">,</span> <span class="n">s_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units_and_scale</span><span class="p">()</span>
+        <span class="n">adj_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="n">s_scale</span>
+        <span class="c1"># (lb): I timeit&#39;d Inflector().pluralize vs. inflectr=Inflector();</span>
+        <span class="c1"># inflectr.pluralize. Creating object ahead of time is not faster.</span>
+        <span class="n">tm_units</span> <span class="o">=</span> <span class="n">Inflector</span><span class="p">(</span><span class="n">English</span><span class="p">)</span><span class="o">.</span><span class="n">conditional_plural</span><span class="p">(</span><span class="n">adj_time</span><span class="p">,</span> <span class="n">tm_unit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_abbrev</span><span class="p">:</span>
+            <span class="n">tm_units</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="n">time_fmtd</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.02f}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">adj_time</span><span class="p">,</span> <span class="n">tm_units</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">time_fmtd</span><span class="p">,</span> <span class="n">s_scale</span><span class="p">,</span> <span class="n">tm_unit</span></div></div>
+
+    <span class="c1"># ***</span>
+
+<span class="c1"># ***</span>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">human-friendly_pedantic-timedelta</a></h1>
+
+
+
+<p class="blurb">A human-friendly pedantic `timedelta` string formatter.</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pedantic-timedelta.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Help Us Improve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Developer Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">Project History</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="genindex.html">Index</a></li>
+    
+    <li class="toctree-l1"><a href="py-modindex.html">Module Index</a></li>
+    
+    <li class="toctree-l1"><a href="search.html">Search Path</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018-9, HotOffThe Hamster.
+      
+    </div>
+
+    
+    <a href="https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

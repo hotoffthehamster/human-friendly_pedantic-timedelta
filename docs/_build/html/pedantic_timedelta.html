@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pedantic_timedelta package &#8212; human-friendly_pedantic-timedelta 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/hfpt-logo-fav.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="pedantic-timedelta-package">
+<h1>pedantic_timedelta package<a class="headerlink" href="#pedantic-timedelta-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-pedantic_timedelta">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pedantic_timedelta" title="Permalink to this headline">¶</a></h2>
+<p>A Human-friendly Pedantic <cite>timedelta</cite> formatter</p>
+<dl class="class">
+<dt id="pedantic_timedelta.PedanticTimedelta">
+<em class="property">class </em><code class="descclassname">pedantic_timedelta.</code><code class="descname">PedanticTimedelta</code><a class="reference internal" href="_modules/pedantic_timedelta.html#PedanticTimedelta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.timedelta</span></code></p>
+<p>A <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.timedelta()</span></code> formatter that uses progressive time unit
+labels to prepare a delta time value for output.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike <code class="xref py py-func docutils literal notranslate"><span class="pre">datetime.timedelta()</span></code>, which accepts weeks but not
+months, nor years, because not every month, nor every year has
+the same number of days, this class fudges the calculation,
+allowing one to specify imprecise time deltas.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><a class="reference internal" href="#pedantic_timedelta.PedanticTimedelta.DAYS_IN_YEAR" title="pedantic_timedelta.PedanticTimedelta.DAYS_IN_YEAR"><strong>DAYS_IN_YEAR</strong></a> – Mean tropical year (using Laskar’s expression)
+on January 1, 2000.</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Tropical_year">https://en.wikipedia.org/wiki/Tropical_year</a></li>
+</ul>
+<dl class="attribute">
+<dt id="pedantic_timedelta.PedanticTimedelta.DAYS_IN_MONTH">
+<code class="descname">DAYS_IN_MONTH</code><em class="property"> = 30.436849083333332</em><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.DAYS_IN_MONTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>DAYS_IN_YEAR / 12.0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pedantic_timedelta.PedanticTimedelta.DAYS_IN_YEAR">
+<code class="descname">DAYS_IN_YEAR</code><em class="property"> = 365.242189</em><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.DAYS_IN_YEAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean tropical year (using Laskar’s expression) on 1/1/2000.
+- <a class="reference external" href="https://en.wikipedia.org/wiki/Tropical_year">https://en.wikipedia.org/wiki/Tropical_year</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pedantic_timedelta.PedanticTimedelta.SECS_IN_DAY">
+<code class="descname">SECS_IN_DAY</code><em class="property"> = 86400</em><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.SECS_IN_DAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>1/86,400 is mean of solar day.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pedantic_timedelta.PedanticTimedelta.SECS_IN_MONTH">
+<code class="descname">SECS_IN_MONTH</code><em class="property"> = 2629743.7608</em><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.SECS_IN_MONTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>SECS_IN_YEAR / 12.0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pedantic_timedelta.PedanticTimedelta.SECS_IN_YEAR">
+<code class="descname">SECS_IN_YEAR</code><em class="property"> = 31556925.1296</em><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.SECS_IN_YEAR" title="Permalink to this definition">¶</a></dt>
+<dd><p>DAYS_IN_YEAR * SECS_IN_DAY</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pedantic_timedelta.PedanticTimedelta.time_format_elapsed">
+<em class="property">static </em><code class="descname">time_format_elapsed</code><span class="sig-paren">(</span><em>secs_then</em>, <em>secs_now=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pedantic_timedelta.html#PedanticTimedelta.time_format_elapsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.time_format_elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format elapsed time pedantically.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>secs_then</strong> (<em>float</em>) – seconds at time of event (e.g., <code class="docutils literal notranslate"><span class="pre">time.time()</span></code>).</li>
+<li><strong>secs_now</strong> (<em>float</em>) – seconds from which to calculate elapsed time.
+Defaults to now if not specified (in which case <cite>secs_then</cite>
+should be represented as seconds since epoch).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">elapsed time formatted using single unit of time</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pedantic_timedelta.PedanticTimedelta.time_format_scaled">
+<code class="descname">time_format_scaled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pedantic_timedelta.html#PedanticTimedelta.time_format_scaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pedantic_timedelta.PedanticTimedelta.time_format_scaled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the instance’s elapsed time using the largest single
+unit of time where value is 1 or more (unless the elapsed time
+is less than a single second, in which case the value will be
+expressed in seconds).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple containing (formatted time, seconds in unit, time unit)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple(string, seconds-per-unit, time-unit)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PedanticTimedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mf">0.33</span><span class="p">)</span><span class="o">.</span><span class="n">time_format_scaled</span><span class="p">()</span>
+<span class="go">(&#39;7.92 hours&#39;, 3600.0, &#39;hour&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">human-friendly_pedantic-timedelta</a></h1>
+
+
+
+<p class="blurb">A human-friendly pedantic `timedelta` string formatter.</p>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedantic-timedelta.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Help Us Improve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Developer Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Project History</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="genindex.html">Index</a></li>
+    
+    <li class="toctree-l1"><a href="py-modindex.html">Module Index</a></li>
+    
+    <li class="toctree-l1"><a href="search.html">Search Path</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018-9, HotOffThe Hamster.
+      
+      |
+      <a href="_sources/pedantic_timedelta.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

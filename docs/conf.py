@@ -20,7 +20,6 @@ import shlex
 import alabaster
 
 
-
 # If extensions (or modules to document with autodoc) are in another
 # directory, add these directories to sys.path here. If the directory is
 # relative to the documentation root, use os.path.abspath to make it
@@ -135,22 +134,34 @@ html_theme_options = {
     # Relative path (from $PROJECT/_static/) to a logo image, which will appear
     # in the upper left corner above the name of the project.
     # 'logo': 'logo.png',
-    'logo_name': True,
-    'description': 'A human-friendly pedantic `timedelta` formatter.',
+    # (lb): Not really sure that `logo_name` does anything...
+    'logo_name': False,
+    'description': 'A human-friendly pedantic `timedelta` string formatter.',
     'github_user': 'hotoffthehamster',
     'github_repo': 'human-friendly_pedantic-timedelta',
-    'github_button': True,
+    # The github_button is a medium-largish "Watch" button with a count next to
+    # it, which is distracting. Given the fork-me dog-ear/stripe, don't need.
+    'github_button': False,
     'github_banner': True,
-    'travis_button': True,
+    # The travis_button is neither wired to proper build, nor positioned well,
+    # so manage badges in extra_nav_links instead.
+    'travis_button': False,
+    # Put links to generated indices that autodoc otherwise provides in the reST via, e.g.,:
+    #   * :ref:`genindex`
+    #   * :ref:`modindex`
+    #   * :ref:`search`
+    # but we just want the landing page to be the README.
     'extra_nav_links': {
-        '<img alt="Build Status" src="https://img.shields.io/travis/hotoffthehamster/human-friendly_pedantic-timedelta/master.svg">': 'https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta',
-        '<img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/hotoffthehamster/human-friendly_pedantic-timedelta/master.svg">': 'https://codecov.io/github/hotoffthehamster/human-friendly_pedantic-timedelta?branch=master',
-        '<img alt="Requirements Status" src="https://requires.io/github/hotoffthehamster/human-friendly_pedantic-timedelta/requirements.svg?branch=master">': 'https://requires.io/github/hotoffthehamster/human-friendly_pedantic-timedelta/requirements/?branch=master',
-        '<img alt="Project Management" src="https://badge.waffle.io/hotoffthehamster/human-friendly_pedantic-timedelta.svg?label=ready&title=Ready">': 'https://waffle.io/hotoffthehamster/human-friendly_pedantic-timedelta',
+        'Index': 'genindex.html',
+        'Module Index': 'py-modindex.html',
+        'Search Path': 'search.html',
+        # Alternative logo placements:
+        #  '<img alt="Project Logo" src="_images/hfpt-logo-lrg.png">':
+        #      'https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/',
     },
     'analytics_id': '',
     'show_related': False,
-    'show_powered_by': True,
+    'show_powered_by': False,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -167,8 +178,10 @@ html_short_title = 'Pedantic Timedelta'
 
 # The name of an image file (relative to this directory) to place at the
 # top of the sidebar.
-#html_logo = None
-html_logo = 'assets/hfpt-logo-lrg.png'
+html_logo = None
+# The logo could be placed in the navigation area, but it's distracting.
+# Best left at the bottom of the README instead.
+#   html_logo = 'assets/hfpt-logo-lrg.png'
 
 # The name of an image file (within the static path) to use as favicon
 # of the docs.  This file should be a Windows icon file (.ico) being
@@ -197,7 +210,7 @@ html_sidebars = {
         'navigation.html',
         'relations.html',
         'searchbox.html',
-        'donate.html',
+        #'donate.html',
     ]
 }
 

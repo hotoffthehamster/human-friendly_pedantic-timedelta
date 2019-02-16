@@ -14,7 +14,8 @@ __pycache__/
 .cache
 
 # Sphinx docs/.
-docs/_build/
+#docs/_build/
+docs/_build/doctrees/
 docs/modules.rst
 docs/pedantic_timedelta.rst
 
