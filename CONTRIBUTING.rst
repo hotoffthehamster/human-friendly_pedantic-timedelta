@@ -22,9 +22,9 @@ Contributions are welcome, and they are greatly appreciated!
 
 Every little bit helps, and credit will always be given (if so desired).
 
-==================
-Ways to Contribute
-==================
+=================
+How to Contribute
+=================
 
 You can contribute in many ways:
 
