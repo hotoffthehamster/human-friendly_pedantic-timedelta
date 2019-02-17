@@ -42,6 +42,6 @@ Simple example::
 
 |
 
-.. image:: docs/assets/hfpt-logo-lrg.png
+.. image:: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/raw/master/docs/assets/hfpt-logo-lrg.png
    :align: center
 
