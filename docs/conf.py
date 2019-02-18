@@ -13,12 +13,14 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
-import os
 import datetime
+import os
 import shlex
+import sys
+
 import alabaster
 
+import pedantic_timedelta
 
 # If extensions (or modules to document with autodoc) are in another
 # directory, add these directories to sys.path here. If the directory is
@@ -34,8 +36,6 @@ project_root = os.path.dirname(cwd)
 # This lets us ensure that the source package is imported, and that its
 # version is used.
 sys.path.insert(0, project_root)
-
-import pedantic_timedelta
 
 # -- General configuration ---------------------------------------------
 
@@ -247,7 +247,7 @@ html_sidebars = {
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'hamster_clidoc'
+htmlhelp_basename = 'human-friendly_pedantic-timedeltadoc'
 
 
 # -- Options for LaTeX output ------------------------------------------
