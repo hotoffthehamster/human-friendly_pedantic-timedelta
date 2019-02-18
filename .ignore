@@ -3,6 +3,6 @@
 .pytest_cache/
 .tox/
 docs/_build
-pedantic_timedelta*.egg-info/
 htmlcov/
+pedantic_timedelta*.egg-info/
 
