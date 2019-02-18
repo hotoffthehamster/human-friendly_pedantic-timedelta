@@ -115,7 +115,7 @@ Ready to contribute? Here's how to set up ``human-friendly_pedantic-timedelta`` 
    *Note:* We use the ``-a`` option so that ``cdproject`` changes directories
    to the ``human-friendly_pedantic-timedelta/`` directory when we're in the virtual environment.
 
-   Next, set up your forks for local development::
+   Next, set up your fork for local development::
 
     (pedantic-timedelta) $ cdproject
     (pedantic-timedelta) $ make develop
@@ -202,6 +202,8 @@ Ready to contribute? Here's how to set up ``human-friendly_pedantic-timedelta`` 
 
      * ``i18n/l10n: Something about words.``
 
+     * ``Feedback: Fix something per PR feedback.``
+
      (You'll notice that this strategy is similar to
      `gitmoji <https://gitmoji.carloscuesta.me/>`__,
      but it's more concise, and less obtuse.)
@@ -216,7 +218,7 @@ Ready to contribute? Here's how to set up ``human-friendly_pedantic-timedelta`` 
 
    You can run all of these tools with one command::
 
-    (pedantic-timedelta) $ make test-all
+    $ make test-all
 
    .. _rebase_and_squash:
 
@@ -253,7 +255,7 @@ Ready to contribute? Here's how to set up ``human-friendly_pedantic-timedelta`` 
 
    Next, start a rebase::
 
-    (pedantic-timedelta) $ git rebase -i 2e888c3
+    $ git rebase -i 2e888c3
 
    (*Note:* Use the SHA1 hash of the commit *after* the one you want squash into.)
 
