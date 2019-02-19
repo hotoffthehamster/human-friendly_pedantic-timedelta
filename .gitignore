@@ -1,22 +1,15 @@
-# general things to ignore
+# Building/Packaging/Distributing.
 build/
 dist/
 *.egg-info/
-*.egg
+
+# Byte-compiled/Optimized Python and Library/DLL files.
 *.py[cod]
 __pycache__/
+
+# Testing and CI tasks.
 .pytest_cache/
-*.so
-*~
-
-# due to using tox and pytest
 .tox
-.cache
-
-# Sphinx docs/.
-docs/_build/
-docs/modules.rst
-docs/pedantic_timedelta.rst
 
 # `make coverage-html` output
 .coverage
@@ -24,4 +17,10 @@ htmlcov/
 
 # pytest-cov / coverage / https://codecov.io
 coverage.xml
+
+# Sphinx docs/.
+docs/_build/
+# After `make docs`:
+docs/modules.rst
+docs/pedantic_timedelta.rst
 
