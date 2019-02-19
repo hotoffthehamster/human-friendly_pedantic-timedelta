@@ -90,7 +90,9 @@ questions or concerns. Response times may vary depending on season.
 Getting Started
 ===============
 
-Ready to contribute? Here's how to set up ``human-friendly_pedantic-timedelta`` for local development.
+Ready to contribute?
+
+Here's how to set up ``human-friendly_pedantic-timedelta`` for local development.
 
 1. Fork the ``human-friendly_pedantic-timedelta`` repo on GitHub.
 
