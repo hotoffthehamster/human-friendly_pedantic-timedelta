@@ -4,6 +4,11 @@ History
 
 .. :changelog:
 
+0.0.6 (2019-02-19)
+==================
+
+- Update to modern ReadTheDocs theme.
+
 0.0.5 (2019-02-18)
 ==================
 
