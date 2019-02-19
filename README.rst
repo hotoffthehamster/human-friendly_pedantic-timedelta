@@ -46,7 +46,8 @@ Simple example::
 
 |
 
-.. image:: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/raw/master/docs/assets/hfpt-logo-lrg.png
+.. image:: https://raw.githubusercontent.com/hotoffthehamster/human-friendly_pedantic-timedelta/master/docs/assets/hfpt-logo-lrg.png
+   :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/develop/authors.html#graphics-shout-out
    :align: center
    :alt: "Penrose Hourglass"
 
