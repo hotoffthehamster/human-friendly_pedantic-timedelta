@@ -20,6 +20,6 @@ fixes:
 coverage:
   # precision: 0 | 2
   precision: 0
-  # round: down | up | nearest
+  # round: [down] | up | nearest
   range: 70...100
 
