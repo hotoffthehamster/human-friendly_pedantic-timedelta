@@ -16,11 +16,11 @@ Human-Friendly Pedantic ``timedelta``
 
 .. image:: https://img.shields.io/github/release/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
   :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/releases
-  :alt: Release Status
+  :alt: GitHub Release Status
 
 .. image:: https://img.shields.io/pypi/v/human-friendly-pedantic-timedelta.svg
   :target: https://pypi.org/project/human-friendly-pedantic-timedelta/
-  :alt: Release Status
+  :alt: PyPI Release Status
 
 .. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
   :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
