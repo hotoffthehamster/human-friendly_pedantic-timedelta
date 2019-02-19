@@ -45,12 +45,12 @@ import pedantic_timedelta
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 # Ref:
-#   http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+#   http://www.sphinx-doc.org/en/master/usage/extensions/index.html
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -66,7 +66,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'human-friendly_pedantic-timedelta'
+project = 'human-friendly_pedantic-timedelta'
 copyright = '2018-9, HotOffThe Hamster'
 author = 'HotOffThe Hamster'
 
