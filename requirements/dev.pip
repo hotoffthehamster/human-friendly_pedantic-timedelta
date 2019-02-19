@@ -2,9 +2,5 @@
 
 -r ./docs.pip
 -r ./test.pip
-
-flake8
-setuptools >= 38.6.0
-twine >= 1.11.0
-wheel >= 0.31.0
+-r ./release.pip
 
