@@ -17,7 +17,7 @@
 #
 #   http://www.gnu.org/licenses/
 
-"""A Human-friendly Pedantic `timedelta` formatter"""
+"""A Human-friendly Pedantic `timedelta` formatter."""
 
 from __future__ import absolute_import, unicode_literals
 
@@ -33,8 +33,10 @@ log = logging.getLogger('timedelta_wrap')
 
 class PedanticTimedelta(timedelta):
     """
-    A :func:`datetime.timedelta` formatter that uses progressive time unit
-    labels to prepare a delta time value for output.
+    Wrapper formats timedelta using least common whole number time unit.
+
+    - A :func:`datetime.timedelta` formatter that uses progressive time unit
+      labels to prepare a delta time value for output.
 
     .. NOTE::
 
@@ -111,7 +113,9 @@ class PedanticTimedelta(timedelta):
         eons=0,
         gigaannums=0
     ):
-        """A wrapper around `datetime.timedelta.__new__`
+        """Create new PedanticTimedelta instance.
+
+        A wrapper around `datetime.timedelta.__new__`
         that recognizes additional time units, including
         'months', 'years', and much, much more.
 
@@ -251,7 +255,9 @@ class PedanticTimedelta(timedelta):
         return tdw.time_format_scaled()[0]
 
     def _units_and_scale(self):
-        """Private method determines the maximum scale that can be used to
+        """Determine best time unit to use to represent time duration.
+
+        Private method determines the maximum scale that can be used to
         represent a time value as 1 of more of a unit, e.g., 1 second, 59
         minutes, 15 days, but never 61 seconds, 90 minutes, 35 days, etc.
         """
@@ -279,7 +285,9 @@ class PedanticTimedelta(timedelta):
         return tm_unit, is_abbrev, s_scale
 
     def time_format_scaled(self):
-        """Format the instance's elapsed time using the largest single
+        """Format time duration using appropriate precision and time unit.
+
+        Format the instance's elapsed time using the largest single
         unit of time where value is 1 or more (unless the elapsed time
         is less than a single second, in which case the value will be
         expressed in seconds).
