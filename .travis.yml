@@ -1,20 +1,8 @@
-# Config file for automatic testing at travis-ci.org
+# Travis CI config.
+#
+#   https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta
 
 language: python
-
-# NOTE: Cannot use separate env and python sections, like:
-#
-#       env:
-#         - TOXENV=py36
-#         - ...
-#
-#       python:
-#         - '3.6'
-#         - ...
-#
-# because travis-ci.org/.com will multiply those arrays,
-# resulting in every combination of version and environ.
-# Use a build matrix instead.
 
 matrix:
   include:
