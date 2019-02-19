@@ -2,7 +2,6 @@
    :maxdepth: 1
    :hidden:
 
-   README <readme>
    installation
 
    API Reference <pedantic-timedelta>

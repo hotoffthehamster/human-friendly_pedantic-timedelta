@@ -18,9 +18,7 @@ import os
 import shlex
 import sys
 
-import alabaster
-
-import pedantic_timedelta
+import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another
 # directory, add these directories to sys.path here. If the directory is
@@ -37,6 +35,8 @@ project_root = os.path.dirname(cwd)
 # version is used.
 sys.path.insert(0, project_root)
 
+import pedantic_timedelta
+
 # -- General configuration ---------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -51,7 +51,6 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'alabaster',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -71,6 +70,10 @@ project = u'human-friendly_pedantic-timedelta'
 copyright = '2018-9, HotOffThe Hamster'
 author = 'HotOffThe Hamster'
 
+# (lb): Only one source of Version Truth: AFAICT, sphinx_rtd_theme ignores version
+# and release. So the only version we must bump each release lives in setup.py,
+# and we can ignore the values here.
+#
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
 # the built documents.
@@ -119,62 +122,67 @@ pygments_style = 'sphinx'
 # documents.
 #keep_warnings = False
 
-
 # -- Options for HTML output -------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#   https://github.com/mitya57/alabaster-1
-html_theme = 'alabaster'
+# Ref:
+#   http://www.sphinx-doc.org/en/master/usage/configuration.html#html-options
+#   http://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+# The theme to use for HTML and HTML Help pages.
+# Ref:
+#   https://sphinx-rtd-theme.readthedocs.io/en/latest/configuring.html
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    # Relative path (from $PROJECT/_static/) to a logo image, which will appear
-    # in the upper left corner above the name of the project.
-    # 'logo': 'logo.png',
-    # (lb): Not really sure that `logo_name` does anything...
-    'logo_name': False,
-    'description': 'A human-friendly pedantic `timedelta` string formatter.',
+    # Table of contents options.
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False,
+    # Miscellaneous options.
+    # 'canonical_url': '',
+    # 'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
+    'logo_only': False,
+    'display_version': True,
+    # prev_next_buttons_location: [bottom], top, both, or None.
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    # vcs_pageview_mode (upper-left navbar home button):
+    #   With display_github: [blob], edit, or raw.
+    #   #'vcs_pageview_mode': '',
+    # style_nav_header_background: Default: '#2980B9'
+    #   #'style_nav_header_background': '#2980B9',
+}
+
+# https://docs.readthedocs.io/en/latest/vcs.html?highlight=conf_py_path
+html_context = {
+    # Enable the "Edit in GitHub" link within the header of each page.
+    'display_github': True,
+    # Set the following variables to generate the resulting github URL for each page.
+    # Format Template: https://{{ github_host|default("github.com") }}
+    #   /{{ github_user }}/{{ github_repo }}/blob
+    #   /{{ github_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}
     'github_user': 'hotoffthehamster',
     'github_repo': 'human-friendly_pedantic-timedelta',
-    # The github_button is a medium-largish "Watch" button with a count next to
-    # it, which is distracting. Given the fork-me dog-ear/stripe, don't need.
-    'github_button': False,
-    'github_banner': True,
-    # The travis_button is neither wired to proper build, nor positioned well,
-    # so manage badges in extra_nav_links instead.
-    'travis_button': False,
-    # Put links to generated indices that autodoc otherwise provides in the reST via, e.g.,:
-    #   * :ref:`genindex`
-    #   * :ref:`modindex`
-    #   * :ref:`search`
-    # but we just want the landing page to be the README.
-    'extra_nav_links': {
-        'Index': 'genindex.html',
-        'Module Index': 'py-modindex.html',
-        'Search Path': 'search.html',
-        # Alternative logo placements:
-        #  '<img alt="Project Logo" src="_images/hfpt-logo-lrg.png">':
-        #      'https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/',
-    },
-    'analytics_id': '',
-    'show_related': False,
-    'show_powered_by': False,
+    # Branch name.
+    'github_version': 'develop/',
+    # Path in the checkout to the docs root.
+    'conf_py_path': 'docs/',
 }
+
+# File-wide metadata.
+# (lb): I found this documented somewhere but did not fix "Edit on GitHub" broken link.
+#   github_url = 'https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta'
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
-
-# The name for this set of Sphinx documents.  If None, it defaults to
-# "<project> v<release> documentation".
-#html_title = None
-
-# A shorter title for the navigation bar.  Default is the same as
-# html_title.
-#html_short_title = None
-html_short_title = 'Pedantic Timedelta'
+# (lb): I've seen this path in some projects, but I think it's only
+# necessary if you install sphinx_rtd_theme manually (not via pip).
+#   html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name of an image file (relative to this directory) to place at the
 # top of the sidebar.
@@ -204,6 +212,7 @@ html_favicon = 'assets/hfpt-logo-fav.png'
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
+# (lb): These work with alabaster, but are ignored by sphinx_rtd_theme.
 html_sidebars = {
     '**': [
         'about.html',
@@ -246,9 +255,10 @@ html_sidebars = {
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = None
 
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'human-friendly_pedantic-timedeltadoc'
+# -- Options for HTMLHelp output ---------------------------------------------
 
+# Output file base name for HTML help builder.
+htmlhelp_basename = 'HumanFriendlyPedanticTimedeltadoc'
 
 # -- Options for LaTeX output ------------------------------------------
 
