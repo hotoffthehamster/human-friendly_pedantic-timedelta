@@ -328,7 +328,7 @@ man_pages = [
 texinfo_documents = [
     ('index', 'human-friendly_pedantic-timedelta',
      u'human-friendly_pedantic-timedelta Documentation',
-     u'HotOOffThe Hamster',
+     u'HotOffThe Hamster',
      'human-friendly_pedantic-timedelta',
      'One line description of project.',
      'Miscellaneous'),
