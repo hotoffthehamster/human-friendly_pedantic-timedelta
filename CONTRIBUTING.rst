@@ -57,8 +57,8 @@ Write Documentation
 -------------------
 
 If you find documentation out of date, missing, or confusing,
-please help improve it. This includes the official user documenation,
-the README, other developer documenation, and documentation.
+please help improve it. This includes the official user documentation,
+the README, other developer documentation, and documentation.
 
 We also appreciate reference from blog posts, articles, and other projects.
 
