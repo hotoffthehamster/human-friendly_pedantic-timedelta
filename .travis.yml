@@ -33,6 +33,8 @@ matrix:
       python: '3.6'
     - env: TOXENV=py35
       python: '3.5'
+    - env: TOXENV=py34
+      python: '3.4'
     # Other tasks run against latest Python.
     - env: TOXENV=codecov
       python: '3.7'
