@@ -29,7 +29,6 @@ Refs:
   https://github.com/pypa/sampleproject
 """
 
-from io import open
 from os import path
 
 try:
