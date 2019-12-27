@@ -82,6 +82,7 @@ develop:
 
 lint:
 	flake8 setup.py pedantic_timedelta/ tests/
+	doc8
 
 test:
 	py.test $(TEST_ARGS) tests/
