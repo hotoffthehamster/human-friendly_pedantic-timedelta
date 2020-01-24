@@ -2,11 +2,7 @@
 #
 #   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
 
+# USAGE: `/bin/cp .ignore.example .ignore` and personalize.
+
 .coverage
-.git/
-.pytest_cache/
-.tox/
-docs/_build
-htmlcov/
-pedantic_timedelta*.egg-info/
 
