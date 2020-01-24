@@ -6,6 +6,7 @@
 build/
 dist/
 *.egg-info/
+.eggs/
 
 # Byte-compiled/Optimized Python and Library/DLL files.
 *.py[cod]
@@ -22,9 +23,15 @@ htmlcov/
 # pytest-cov / coverage / https://codecov.io
 coverage.xml
 
-# Sphinx docs/.
+# Sphinx docs/ (from `make docs`):
 docs/_build/
-# After `make docs`:
+# `make docs` generates 2 files for the API reference, but one is just
+# an index file (modules.rst), which we don't use; and the other is
+# the auto-generated API reference. But we override the latter, as
+# pedantic-timedelta.rst, so we can add additional directive options.
 docs/modules.rst
 docs/pedantic_timedelta.rst
+
+# Translations
+*.mo
 
