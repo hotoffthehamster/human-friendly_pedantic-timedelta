@@ -1,5 +1,8 @@
-# Makefile for Sphinx documentation
+# This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_timedelta':
 #
+#   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
+
+# Makefile for Sphinx documentation
 
 # You can set these variables from the command line.
 SPHINXOPTS    =

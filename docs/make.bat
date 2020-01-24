@@ -1,5 +1,9 @@
 @ECHO OFF
 
+REM This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_timedelta':
+REM
+REM   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
+
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (

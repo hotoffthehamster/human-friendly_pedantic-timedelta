@@ -1,6 +1,10 @@
-BUILDDIR = _build
+# This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_timedelta':
+#
+#   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
 
 .PHONY: clean-pyc clean-build docs clean
+
+BUILDDIR = _build
 
 # DEV: Set BROWSER environ to pick your browser, otherwise webbrowser ignores
 # the system default and goes through its list, which starts with 'mozilla'.
