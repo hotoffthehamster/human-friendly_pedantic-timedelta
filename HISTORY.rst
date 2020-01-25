@@ -4,7 +4,7 @@ History
 
 .. :changelog:
 
-1.0.0 (2020-01-24)
+1.0.0 (2020-01-25)
 ==================
 
 - License change: Release under MIT.
