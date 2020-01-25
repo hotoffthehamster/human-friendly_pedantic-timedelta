@@ -2,17 +2,41 @@
 Contributing
 ############
 
-.. |virtualenvwrapper| replace:: ``virtualenvwrapper``
-.. _virtualenvwrapper: https://pypi.org/project/virtualenvwrapper/
+.. |human-friendly_pedantic-timedelta| replace:: ``human-friendly_pedantic-timedelta``
+.. _human-friendly_pedantic-timedelta: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
+
+.. |user-docs| replace:: user documentation
+.. _user-docs: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/tree/develop/docs
+
+.. |envlist| replace:: ``envlist``
+.. _envlist: https://tox.readthedocs.io/en/latest/config.html#conf-envlist
 
 .. |flake8| replace:: ``flake8``
 .. _flake8: http://flake8.pycqa.org/en/latest/
+
+.. |isort| replace:: ``isort``
+.. _isort: https://github.com/timothycrosley/isort
+
+.. |pdb| replace:: ``pdb``
+.. _pdb: https://docs.python.org/3/library/pdb.html
 
 .. |pytest| replace:: ``pytest``
 .. _pytest: https://docs.pytest.org/en/latest/
 
 .. |tox| replace:: ``tox``
 .. _tox: https://tox.readthedocs.io/en/latest/
+
+.. |virtualenv| replace:: ``virtualenv``
+.. _virtualenv: https://virtualenv.pypa.io/en/latest/
+
+.. |virtualenvwrapper| replace:: ``virtualenvwrapper``
+.. _virtualenvwrapper: https://pypi.org/project/virtualenvwrapper/
+
+.. |PEP-257| replace:: PEP 257
+.. _PEP-257: https://www.python.org/dev/peps/pep-0257/
+
+.. |goog-py-sty| replace:: Google Python Style Guide
+.. _goog-py-sty: https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings
 
 .. contents:: Contributing Contents
    :depth: 2
@@ -56,9 +80,15 @@ Pick one, assign yourself to it, and work on the issue.
 Write Documentation
 -------------------
 
-If you find documentation out of date, missing, or confusing,
-please help improve it. This includes the official user documentation,
-the README, other developer documentation, and documentation.
+If you find documentation out of date, missing, or confusing, please help
+us to improve it.
+
+This includes the official |user-docs|_,
+the `README
+<https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/README.rst>`__,
+and the inline docstrings that generate the `API documentation
+<https://human-friendly_pedantic-timedelta.readthedocs.io/en/latest/modules.html>`__
+(per |PEP-257|_ and |goog-py-sty|_).
 
 We also appreciate reference from blog posts, articles, and other projects.
 
@@ -90,11 +120,10 @@ questions or concerns. Response times may vary depending on season.
 Getting Started
 ===============
 
-Ready to contribute?
+Ready to contribute? Here's how to set up
+|human-friendly_pedantic-timedelta|_ for local development.
 
-Here's how to set up ``human-friendly_pedantic-timedelta`` for local development.
-
-1. Fork the ``human-friendly_pedantic-timedelta`` repo on GitHub.
+1. Fork the |human-friendly_pedantic-timedelta|_ repo on GitHub.
 
    * Visit `<https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta>`_ and click *Fork*.
 
@@ -136,7 +165,7 @@ Here's how to set up ``human-friendly_pedantic-timedelta`` for local development
     (pedantic-timedelta) $ deactivate
     $
 
-4. Before starting work on a new feature or bugfix, make sure your
+4. Before starting work on a new feature or bug fix, make sure your
    ``develop`` branch is up to date with the official branch::
 
     (pedantic-timedelta) $ cdproject
@@ -213,14 +242,16 @@ Here's how to set up ``human-friendly_pedantic-timedelta`` for local development
 7. Throughout development, run tests and the linter -- and definitely before
    you submit a Pull Request.
 
-   ``human-friendly_pedantic-timedelta`` uses
+   |human-friendly_pedantic-timedelta|_ uses
    |flake8|_ for linting,
    |pytest|_ for unit testing, and
    |tox|_ for verifying against the many versions of Python.
 
    You can run all of these tools with one command::
 
-    $ make test-all
+     $ make test-all
+
+   which simply executes |tox|_.
 
    .. _rebase_and_squash:
 
@@ -231,13 +262,16 @@ Here's how to set up ``human-friendly_pedantic-timedelta`` for local development
    fixes, and then squash that commit into the previous commit wherein
    you originally added the code that didn't lint.
 
-   (*Note:* Rebasing is an intermediate Git skill, but you needn't be
-   afraid. Just bear in mind that you should not rebase any branch that
-   other developers are working on (which should not apply to your working
-   branch, unless you are collaborating with others, which you're probably
-   not). And know that ``git rebase --abort`` is your friend (though you might
-   want to make a copy of your local working directory before rebasing, just
-   to be safe; or at least make a new branch from the current ``HEAD``).)
+   (*Note:* Rebasing is an intermediate Git skill.
+   If you're unfamiliar, read up elsewhere.
+   But consider a few reminders.
+   First, ensure that you are not rebasing any branch that other developers
+   are also working on (which should not apply to your feature branch, unless
+   you are collaborating with others on that branch, which you are probably not).
+   Second, remember that ``git rebase --abort`` can save you from having to
+   resolve any unanticipated or complicated conflicts, should you find
+   yourself faced with rebase conflicts and unsure how to get your work back
+   (abort the rebase and maybe ask someone for help, and try another approach).)
 
    For example, pretend that I have the following git history::
 
@@ -326,21 +360,25 @@ Before you submit a pull request, check that it meets these guidelines:
 
 1. Update docs.
 
-   * Use docstrings to document new functions, and use inline comments
-     as appropriate (longer comments should go into a reST file in the
-     ``docs/`` directory).
+   * Use docstrings to document new functions, and use (hopefully concise)
+     inline comments as appropriate.
 
-   * Update ``README.rst`` if your feature adds to or changes the API.
+     * Follow the conventions defined by |PEP-257|_ and |goog-py-sty|_.
+
+   * Document broader concepts and capture API changes and additions
+     in the |user-docs|_.
 
 2. Include tests.
 
-   * If the pull request adds new functions, they should be tested,
-     either implicitly, because they're already called by an existing
-     test. Or they should be called explicitly, because you added new
-     tests for them.
+   * If a pull request adds new classes or methods, they should be tested,
+     either implicitly, because they're already called by an existing test.
+     Or they should be tested explicitly, because you added new tests for them.
 
-   * We strive for 100% test coverage, but we do not enforce it.
-     In the least, your code should not reduce coverage.
+   * We strive for test coverage in the high-90s (it's too tedious to hit
+     all branches and get 100%), but we do not enforce it.
+     Please provide tests that provide majority coverage of your new code
+     (you can ignore or consider error handling branches less important to
+     cover, but all branches would still be good to test!).
 
 3. Commit sensibly.
 
@@ -375,8 +413,10 @@ Or you can exclude tests using ``not``, e.g., ``-k 'not test_method'``.
 Note that ``readline`` functionality will not work from any breakpoint
 you encounter under ``make test``. (For example, pressing the Up arrow
 will print a control character sequence to the terminal, rather than
-showing the last command you ran.) If you want to interact with the code
-at runtime, run ``py.test`` instead (see next).
+showing the last command you ran.)
+
+* If you want to interact with the code at runtime,
+  run ``py.test`` directly (see next).
 
 If you'd like to break into a debugger when a test fails, run ``pytest``
 directly and have it start the interactive Python debugger on errors::
@@ -398,25 +438,288 @@ Put it all together to quickly debug a broken test. ::
 
     $ py.test --pdb -vv -k <test_name> tests/
 
-You can also set breakpoints in the code with ``pdb``.
+You can also set breakpoints in the code with |pdb|_.
 Simply add a line like this:
 
 .. code-block:: python
 
     import pdb; pdb.set_trace()
 
-To test against other Python versions than what is setup in your ``virtualenv``,
-you can use ``tox`` and name an environment with the ``envlist`` option::
+To test against other Python versions than what is setup in your |virtualenv|_,
+you can use |tox|_ and name an environment with the |envlist|_ option::
 
     $ tox -e NAME_OR_ENVIRONMENT
+
+===========
+Style Guide
+===========
+
+Code style should be readily apparent by reading existing code.
+
+Style Enforcement
+-----------------
+
+The style of new code can be easily and incontrovertibly verified
+by running various developer tasks.
+
+1. You can lint the code easily with one command.
+
+   But you have your choice of which one command to run.
+
+   The following three commands are essentially equivalent, and run the code linter:
+
+   .. code-block:: Bash
+
+      # The Makefile lint task:
+      $ make lint
+
+      # is similar to the tox task:
+      $ tox -e flake8
+
+      # is just like running flake8:
+      $ flake8 setup.py dob/ tests/
+
+2. You can lint the docs easily with one or two commands.
+
+   The inline docstrings used to create the documentation can be verified with
+   the docstrings linter, which returns nonzero on error. (You can also build
+   the docs, but the builder is a little more forgiving and doesn't complain
+   as much as the linter.)
+
+   .. code-block:: Bash
+
+      # Run the docstrings linter:
+      $ tox -e pep257
+
+      # Generate the reST docs (peruse the output for errors and warnings):
+      $ make docs
+
+.. note:: Not all of this author's projects adhere that well to docstrings
+          convention, so pep257-compliance is not mandatory. Generally, the
+          module docs still build! Also, this author values tests, coverage,
+          and readable code over spending time fleshing out docstrings (which
+          could be a waste of time during development, as code changes quickly!
+          but then there's usually "no time" after development, so we often find
+          ourselves with imperfect docstrings littered throughout the code).
+
+          As such, feel free to run the pep257 linter,
+          but also feel free not to. It's noisy.
+
+.. _verify-import-statement-order:
+
+3. You can verify import statement order manually.
+
+   Imports are grouped by classification, and then ordered alphabetically
+   within each group.
+
+   The |isort|_ tool will automatically fix import statements to conform.
+
+   But |isort|_ also commits certain atrocities such as removing comments
+   from ``setup.cfg`` and removing trailing file blank lines, the former
+   of which is not easy to work-around, so |isort|_ is not a part of the
+   default |tox|_ tasks. You must be run |isort|_ manually.
+
+   .. code-block:: Bash
+
+      $ tox -e isort
+
+   You will likely find that |isort|_ makes unintended changes, and you will
+   have to do a selective commit, e.g., ``git add -p <file>``, while reverting
+   other changes, e.g., ``git checkout -- setup.cfg``.
+
+Style Reference
+---------------
+
+The project style tracks as closely as possible to community conventions,
+mostly established in 2001 by Python's creator, Guido van Rossum, and others:
+
+* `PEP 8 -- Style Guide for Python Code <https://www.python.org/dev/peps/pep-0008/>`_
+
+* `PEP 257 -- Docstring Conventions <https://www.python.org/dev/peps/pep-0257/>`_
+
+In lieu of
+`PEP 287 -- reStructuredText Docstring Format
+<https://www.python.org/dev/peps/pep-0287/>`__,
+the project prefers Google-style docstrings, as defined in the
+`Google Python Style Guide
+<https://google.github.io/styleguide/pyguide.html>`__:
+
+* `Google-style docstrings convention
+  <https://google.github.io/styleguide/pyguide.html#381-docstrings>`__
+
+When building the HTML documentation from the sources,
+Google-style docstrings are recognized by a
+`Sphinx <http://www.sphinx-doc.org/en/master/>`__
+extension:
+
+* `napoleon
+  <http://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html>`__:
+  Support for NumPy and Google style docstrings.
+
+Conventional Deviations
+-----------------------
+
+The conventions outlined in `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_
+are enforced by the `Flake8 <http://flake8.pycqa.org/en/latest/>`__ linter, with
+the following custom rules:
+
+* Use a maximum line length of 89 characters.
+
+  This accommodates two files side-by-side in an editor on a small laptop screen.
+
+  It also makes code more quickly readable, e.g., think of the width of columns
+  in a newspaper or magazine.
+
+* *Disabled:* "**W391**: blank line at end of file".
+
+  Ending every file with a blank line accommodates the developer jumping
+  their cursor to the bottom of a file in a text editor (say, by pressing
+  ``<Ctrl-End>``) and knowing the cursor will always land in the same
+  column (rather than landing at the end of some arbitrary-length line).
+
+* *Disabled:* "**W503**: line break before binary operator".
+
+  This produces, IMO, more readable code.
+
+  For instance, write this:
+
+  .. code-block:: Python
+
+      if (some_thing
+          and another
+          and another_thing):
+
+  or write this:
+
+  .. code-block:: Python
+
+      if (
+        some_thing
+        and another
+        and another_thing
+      ):
+
+  but do not write this:
+
+  .. code-block:: Python
+
+      if (some_thing and
+          another and
+          another_thing):
+
+* *Disabled:* "**W605**: invalid escape sequence".
+
+  This rules incorrectly fires on some regex expression,
+  such as ``\d{2}``, thus, shunned.
+
+There are some unwritten rules (because there are unenforceable by
+the existing linters, by way of not being features), including:
+
+* Keep methods *small and focused*.
+
+  Use function-level scoping to break up a long method into many
+  smaller pieces.
+
+  When you use lots of smaller methods rather than one larger method,
+  it has the side effect of forcing you to better document the code,
+  by forcing you to consider and assign method names to each function.
+
+  While this project does not need to be strict about method length --
+  in Ruby, for instance, the `RuboCop <https://docs.rubocop.org/en/latest/>`__
+  linter enforces a `maximum method length
+  <https://docs.rubocop.org/en/latest/cops_metrics/#metricsmethodlength>`__
+  of 10 lines, by default --
+  it's a good idea to strive for shorter methods, and it's not all that
+  difficult to do, once you develop your own tricks.
+
+  (For instance, one could write a long function at first, and then break
+  it up into smaller, more coherent pieces, selecting multiple lines of code
+  at once, hitting ``<Tab>`` to indent the code one stop, then adding ``def``
+  lines to each grouping of code and assigning descriptive method names.)
+
+* *Prefer* single quotes over double quotes. (This is a loose rule).
+
+  In other programming languages, like Bash and Ruby, double-quoted strings
+  are interpolated, but single-quoted strings are not. This affects whether
+  or not certain characters need to be escaped with a delimiter. And it
+  can cause unintended consequences, e.g., a developer uses double quotation
+  marks but forgets to escape characters within the string.
+
+  One rule we could enforce is to use double quotes for human-readable
+  strings, and to use single quotes for all other strings. But human-
+  readable strings should already be encased in the localization method,
+  e.g., ``_("I'm human-readable!")``, so this demarcation has little
+  additional utility.
+
+  So do what feels right in the moment. Oftentimes, using single quotes
+  is easiest, because the developer can avoid the Shift key and type the
+  quotation mark with one finger.
+
+* Use a single underscore prefix to indicate *private* functions and methods.
+
+  E.g.,: ``def _my_private_method(): ...``.
+
+* Python 2 compatibility has been retired.
+
+  These conventions are no longer necessary (and were removed from the code):
+
+  * Declare the encoding at the top of every file: ``-*- coding: utf-8 -*-``
+
+  * Use *absolute_import* and *unicode_literals* from the ``__future__`` package.
+
+  * Use *six.text_type* to cast a string (to Unicode).
+
+Of Readability
+--------------
+
+Concerning Writing *Tests, Docstrings, Comments, and Documentation*:
+
+* Strive to write code that is *self-documenting*.
+
+  Use *expressive* variable and methods names (and use long names, if they need to be).
+
+  Break long functions into a collection of shorter methods. This will inherently
+  document how the long function works if you give each smaller unit of work a
+  descriptive method name.
+
+  Use well-named, intermediate variables to make code more readable, rather than
+  writing a long one-liner. By naming intermediate values, you will provide
+  inherent documentation to the code.
+
+* Prefer *tests and coverage* over docstrings and documentation.
+
+  You are encouraged to spend your time writing self-documenting code, and to
+  develop tests that are illustrative of the usage of the new code, rather than
+  worrying about writing docstrings and documentation, which can be tedious and
+  time consuming to write (and to read! if you made it this far, dear
+  reader!). Written documentation is also likely to become outdated quickly,
+  as new code is added and old code is changed, and documents lie in the dust.
+  (Which is not to say that docstrings have no utility! Just that docstrings
+  are essentially worthless if what you documented has no test coverage, say.)
+
+Altogether Now
+--------------
+
+Save for running |isort|_ (`see above`__),
+you can run all linter and test tasks with one 3-letter command:
+
+__ verify-import-statement-order_
+
+.. code-block:: Bash
+
+   $ tox
+
+Once this command is passing, you should be good to commit (or rebase) your
+work and to submit a `Pull Request`__.
+
+__ `Pull Request Guidelines`_
 
 ===============
 Code of Conduct
 ===============
 
-Please respect and adhere to the `Code of Conduct <code-of-conduct.html>`_.
-
-And that's it!
+Please respect and adhere to the `Code of Conduct <code-of-conduct.html>`__
+(please also read it!).
 
 **Happy 💬-Pedantic 🕐Timedelta⏳ Hacking!**
 
