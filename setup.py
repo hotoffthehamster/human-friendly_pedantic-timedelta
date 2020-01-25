@@ -14,18 +14,9 @@ Refs:
   https://github.com/pypa/sampleproject
 """
 
-from os import path
+from setuptools import find_packages, setup
 
-try:
-    from setuptools import find_packages, setup
-except ImportError:
-    from distutils.core import setup
-
-here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the README file.
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+# *** Package requirements.
 
 requirements = [
     # Vocabulary word pluralizer.
@@ -33,100 +24,42 @@ requirements = [
     'Inflector',
 ]
 
+# *** Minimal setup() function -- Prefer using config where possible.
+
+# (lb): Most settings are in setup.cfg, except identifying packages.
+# (We could find-packages from within setup.cfg, but it's convoluted.)
+
 setup(
-    name='human-friendly_pedantic-timedelta',
+    # Run-time dependencies installed on `pip install`. To learn more
+    # about "install_requires" vs pip's requirements files, see:
+    #   https://packaging.python.org/en/latest/requirements.html
+    install_requires=requirements,
 
-    # Versions should comply with PEP440. For a discussion on single-
-    # sourcing the version across setup.py and the project code, see
-    #  https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.7a1',
-
-    description="Human-friendly Pedantic `timedelta`",
-    long_description=long_description,
-    long_description_content_type="text/x-rst",
-
-    # Project page.
-    url='https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta',
-
-    # Author details.
-    author='HotOffThe Hamster',
-    author_email='hotoffthehamster+humanfriendlypedantictimedelta@gmail.com',
-
-    # Choose your license.
-    license='GPLv3',
-
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=[
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
-
-        # For whom the project is intended.
-        'Intended Audience :: Developers',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-
-        # The License classification, which matches the "license" above.
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-
-        # The Python versions supported. All Modern Ones.
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-    ],
-
-    # Keywords for PyPI to display, and to use for search results.
-    keywords='timedelta elapsed time duration human friendly string formatter',
-
-    # Specify packages to install, either manually, or using find_packages().
-    # Alternatively, e.g.,
-    #   packages=['human-friendly_pedantic-timedelta', ],
+    # Specify which package(s) to install. (Note that using find_packages on
+    # this project is like `packages=['human-friendly_pedantic-timedelta']`.)
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     # Alternatively, to distribute just a my_module.py, use py_modules:
     #   py_modules=["my_module"],
 
-    # Run-time dependencies installed on `pip install`. To learn more
-    # about "install_requires" vs pip's requirements files, see:
-    #  https://packaging.python.org/en/latest/requirements.html
-    install_requires=requirements,
-
-    # Additional groups of dependencies (e.g. development dependencies).
-    # Install these using the following syntax, e.g.,
-    #   `pip install -e .[dev,test]`
-    # DEV/BEWARE: See also: requirements/*.pip
-    # (lb): Is extras_require necessary, given `make develop`?
-    extras_require={
-        'dev': ['check-manifest'],
-        'test': ['coverage'],
-    },
-
-    # Data files to be installed. (<= Python 2.6 needs MANIFEST.in as well.)
-    #  package_data={
-    #      'sample': ['package_data.dat'],
-    #  },
-
-    # Although 'package_data' is the preferred approach, in some cases
-    # you may need to place data files outside of your packages. See:
-    #  http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
-    # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    #  data_files=[('my_data', ['data/data_file'])],
-
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # pip to create the appropriate form of executable for the target platform.
+    # Tell setuptools to determine the version
+    # from the latest SCM (git) version tag.
     #
-    # [lb]: This installs to /usr/local/bin, e.g., if you don't sudo:
-    #   Installing pedantic_timedelta script to /usr/local/bin
-    #   error: [Errno 13] Permission denied: '/usr/local/bin/pedantic_timedelta'
-    # Unless of course you're installing to a virtualenv.
-    #
-    #  entry_points={
-    #      'console_scripts': [
-    #          'pedantic_timedelta=pedantic_timedelta:main',
-    #      ],
-    #  },
+    # Note that if the latest commit is not tagged with a version,
+    # or if your working tree or index is dirty, then the version
+    # from git will be appended with the commit hash that has the
+    # version tag, as well as some sort of 'distance' identifier.
+    # E.g., if a project has a '3.0.0a21' version tag but it's not
+    # on HEAD, or if the tree or index is dirty, the version might
+    # be:
+    #   $ python setup.py --version
+    #   3.0.0a22.dev3+g6f93d8c.d20190221
+    # But if you clean up your working directory and move the tag
+    # to the latest commit, you'll get the plain version, e.g.,
+    #   $ python setup.py --version
+    #   3.0.0a31
+    # Ref:
+    #   https://github.com/pypa/setuptools_scm
+    setup_requires=['setuptools_scm'],
+    use_scm_version=True,
 )
 
