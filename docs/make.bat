@@ -4,6 +4,10 @@ REM This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_ti
 REM
 REM   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta
 
+set PROJECTNAME=human-friendly_pedantic-timedelta
+
+REM *** END: Project customization. Remainder of file is _boilerplate_.
+
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (
@@ -119,9 +123,9 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\human-friendly_pedantic-timedelta.qhcp
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\%PROJECTNAME%.qhcp
 	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\human-friendly_pedantic-timedelta.ghc
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\%PROJECTNAME%.ghc
 	goto end
 )
 
