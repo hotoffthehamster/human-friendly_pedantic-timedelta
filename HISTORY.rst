@@ -4,6 +4,25 @@ History
 
 .. :changelog:
 
+1.0.0 (2020-01-24)
+==================
+
+- License change: Release under MIT.
+
+  - "I am the only developer, and I approve this change!"
+
+- Drop Python 2.x and 3.4 support.
+
+- Documentation improvements.
+
+- DX [Developer eXperience] tooling:
+
+  - Migrate project settings from ``setup.py`` to ``setup.cfg``
+    (to specify project-specific metadata in config, not code).
+
+  - Integrate `setuptools_scm <https://github.com/pypa/setuptools_scm/>`__
+    (use SCM for version management).
+
 0.0.6 (2019-02-19)
 ==================
 
