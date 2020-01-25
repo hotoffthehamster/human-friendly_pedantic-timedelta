@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_timedelta':
 #
 #   https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta

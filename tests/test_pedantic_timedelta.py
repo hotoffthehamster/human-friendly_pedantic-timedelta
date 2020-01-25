@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # This file is part of 'human-friendly_pedantic-timedelta'.
 #
 # 'human-friendly_pedantic-timedelta' is free software: you can re-

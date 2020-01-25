@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # This file exists within 'human-friendly_pedantic-timedelta' aka 'pedantic_timedelta':
 #
