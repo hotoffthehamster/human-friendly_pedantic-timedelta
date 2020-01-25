@@ -87,7 +87,7 @@ This includes the official |user-docs|_,
 the `README
 <https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/README.rst>`__,
 and the inline docstrings that generate the `API documentation
-<https://human-friendly_pedantic-timedelta.readthedocs.io/en/latest/modules.html>`__
+<https://human-friendly_pedantic-timedelta.readthedocs.io/en/latest/pedantic-timedelta.html>`__
 (per |PEP-257|_ and |goog-py-sty|_).
 
 We also appreciate reference from blog posts, articles, and other projects.
