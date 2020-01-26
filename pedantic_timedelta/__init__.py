@@ -24,8 +24,6 @@
 
 """A Human-friendly Pedantic `timedelta` formatter."""
 
-from __future__ import absolute_import, unicode_literals
-
 from gettext import gettext as _
 
 import time

@@ -24,8 +24,6 @@
 
 """Tests for ``human-friendly_pedantic-timedelta``."""
 
-from __future__ import absolute_import, unicode_literals
-
 import datetime
 
 import pytest
