@@ -35,11 +35,12 @@ setup(
     #   https://packaging.python.org/en/latest/requirements.html
     install_requires=requirements,
 
-    # Specify which package(s) to install. (Note that using find_packages on
-    # this project is like `packages=['human-friendly_pedantic-timedelta']`.)
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-    # Alternatively, to distribute just a my_module.py, use py_modules:
-    #   py_modules=["my_module"],
+    # Specify which package(s) to install.
+    # - Without any rules, find_packages returns, e.g.,
+    #     ['pedantic_timedelta', 'tests', 'tests.pedantic_timedelta']
+    # - With the 'exclude*' rule, this call is essentially:
+    #     packages=['pedantic_timedelta']
+    packages=find_packages(exclude=['tests*']),
 
     # Tell setuptools to determine the version
     # from the latest SCM (git) version tag.
