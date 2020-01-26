@@ -23,7 +23,7 @@ To install within a |virtualenv|_, try::
 
 To develop on the project, link to the source files instead::
 
-    $ deactivate
+    (pedantic-timedelta) $ deactivate
     $ rmvirtualenv pedantic-timedelta
     $ git clone git@github.com:hotoffthehamster/human-friendly_pedantic-timedelta.git
     $ cd human-friendly_pedantic-timedelta
@@ -34,4 +34,5 @@ After creating the virtual environment,
 to start developing from a fresh terminal, run |workon|_::
 
     $ workon pedantic-timedelta
+    (pedantic-timedelta) $ ...
 
