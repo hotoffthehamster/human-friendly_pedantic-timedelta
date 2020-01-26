@@ -4,7 +4,6 @@
 
 # USAGE: `/bin/cp .ignore.example .ignore` and personalize.
 
-.coverage
 .git/
 
 *.egg-info/
