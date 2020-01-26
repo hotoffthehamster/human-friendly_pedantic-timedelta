@@ -52,8 +52,8 @@ project_ghuser = 'hotoffthehamster'
 project_ghrepo = project_dist
 project_texinfo = 'One line description of project.'
 project_docinfo = '{} Documentation'.format(project_dist)
+project_htmlhelp_basename = 'HumanFriendlyPedanticTimedeltadoc'
 project_copy = '2018-9, HotOffThe Hamster'
-# project_auth = 'HotOffThe Hamster'
 project_auth = 'Landon Bouma'
 project_orgn = 'HotOffThe Hamster'
 
@@ -220,7 +220,7 @@ html_context = {
 
 # The name of an image file (relative to this directory) to place at the
 # top of the sidebar.
-html_logo = None
+#html_logo = None
 # The logo could be placed in the navigation area, but it's distracting.
 # Best left at the bottom of the README instead.
 #   html_logo = 'assets/hfpt-logo-lrg.png'
@@ -292,7 +292,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'HumanFriendlyPedanticTimedeltadoc'
+htmlhelp_basename = project_htmlhelp_basename
 
 # -- Options for LaTeX output ------------------------------------------
 
