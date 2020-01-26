@@ -120,12 +120,13 @@ questions or concerns. Response times may vary depending on season.
 Getting Started
 ===============
 
-Ready to contribute? Here's how to set up
-|human-friendly_pedantic-timedelta|_ for local development.
+Ready to contribute? Here's how to set up |human-friendly_pedantic-timedelta|_
+for local development.
 
 1. Fork the |human-friendly_pedantic-timedelta|_ repo on GitHub.
 
-   * Visit `<https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta>`_ and click *Fork*.
+   * Visit `<https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta>`__
+     and click *Fork*.
 
 2. Clone your fork locally.
 
@@ -134,7 +135,8 @@ Ready to contribute? Here's how to set up
 
     $ git clone git@github.com:<your_login>/human-friendly_pedantic-timedelta.git
 
-3. Install the project into a Python virtual instance, or ``virtualenv``.
+3. Install the project into a Python virtual instance,
+   or |virtualenv|_.
 
    First, ensure that you have |virtualenvwrapper|_ installed.
 
@@ -144,7 +146,8 @@ Ready to contribute? Here's how to set up
     $ mkvirtualenv -a $(pwd) pedantic-timedelta
 
    *Note:* We use the ``-a`` option so that ``cdproject`` changes directories
-   to the ``human-friendly_pedantic-timedelta/`` directory when we're in the virtual environment.
+   to the ``human-friendly_pedantic-timedelta/`` directory when we're in the virtual
+   environment.
 
    Next, set up your fork for local development::
 
@@ -338,7 +341,8 @@ Ready to contribute? Here's how to set up
    .. _rebase_atop_develop:
 
 10. Finally,
-    `submit a pull request <https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/pulls>`_
+    `submit a pull request
+    <https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/pulls>`_
     through the GitHub website.
 
     *Important:* Please rebase your code against ``develop`` and resolve
