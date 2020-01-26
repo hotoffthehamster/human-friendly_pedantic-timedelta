@@ -19,7 +19,7 @@ To install user-local, simply run::
 To install within a |virtualenv|_, try::
 
     $ mkvirtualenv pedantic-timedelta
-    $ pip install human-friendly_pedantic-timedelta
+    (pedantic-timedelta) $ pip install human-friendly_pedantic-timedelta
 
 To develop on the project, link to the source files instead::
 
@@ -28,7 +28,7 @@ To develop on the project, link to the source files instead::
     $ git clone git@github.com:hotoffthehamster/human-friendly_pedantic-timedelta.git
     $ cd human-friendly_pedantic-timedelta
     $ mkvirtualenv -a $(pwd) --python=/usr/bin/python3.7 pedantic-timedelta
-    $ make develop
+    (pedantic-timedelta) $ make develop
 
 After creating the virtual environment,
 to start developing from a fresh terminal, run |workon|_::
