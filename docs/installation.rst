@@ -4,11 +4,11 @@ Installation
 
 To install system-wide, run as superuser::
 
-    $ pip install human-friendly_pedantic-timedelta
+    $ pip3 install human-friendly_pedantic-timedelta
 
 To install user-local, simply run::
 
-    $ pip install -U human-friendly_pedantic-timedelta
+    $ pip3 install -U human-friendly_pedantic-timedelta
 
 To install within a ``virtualenv``, try::
 
