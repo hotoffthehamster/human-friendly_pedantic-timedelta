@@ -144,6 +144,7 @@ for local development.
 
     $ cd human-friendly_pedantic-timedelta/
     $ mkvirtualenv -a $(pwd) pedantic-timedelta
+    (pedantic-timedelta) $
 
    *Note:* We use the ``-a`` option so that ``cdproject`` changes directories
    to the ``human-friendly_pedantic-timedelta/`` directory when we're in the virtual
