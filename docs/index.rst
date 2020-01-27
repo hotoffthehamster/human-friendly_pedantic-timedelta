@@ -18,7 +18,8 @@
    :maxdepth: 2
    :hidden:
 
-   Installation <installation>   API Reference <pedantic-timedelta>
+   Installation <installation>
+   API Reference <pedantic-timedelta>
    Help Us Improve <contributing>
    Code of Conduct <code-of-conduct>
    Developer Credits <authors>
