@@ -257,25 +257,31 @@ class PedanticTimedelta(timedelta):
         tdw = PedanticTimedelta(seconds=secs_elapsed)
         return tdw.time_format_scaled()[0]
 
-    def _units_and_scale(self):
+    def _units_and_scale(self, abbreviate=False):
         """Determine best time unit to use to represent time duration.
 
         Private method determines the maximum scale that can be used to
         represent a time value as 1 of more of a unit, e.g., 1 second, 59
         minutes, 15 days, but never 61 seconds, 90 minutes, 35 days, etc.
+
+        :param abbreviate: Whether to use 2- or 3-character abbreviations.
+        :type abbreviate: bool
         """
         is_abbrev = False
         if self.total_seconds() >= PedanticTimedelta.SECS_IN_YEAR:
-            tm_unit = _('year')
+            tm_unit = _('year') if not abbreviate else _('yr')
+            is_abbrev = abbreviate
             s_scale = PedanticTimedelta.SECS_IN_YEAR
         elif self.total_seconds() >= PedanticTimedelta.SECS_IN_MONTH:
-            tm_unit = _('month')
+            tm_unit = _('month') if not abbreviate else _('mon')
+            is_abbrev = abbreviate
             s_scale = PedanticTimedelta.SECS_IN_MONTH
         elif self.total_seconds() >= PedanticTimedelta.SECS_IN_DAY:
             tm_unit = _('day')
             s_scale = PedanticTimedelta.SECS_IN_DAY
         elif self.total_seconds() >= (60 * 60):  # secs/min * mins/hour = secs/hour
-            tm_unit = _('hour')
+            tm_unit = _('hour') if not abbreviate else _('hr')
+            is_abbrev = abbreviate
             s_scale = 60.0 * 60.0  # secs_in_hour
         elif self.total_seconds() >= 60:  # secs/min = secs/min
             tm_unit = _('min')
@@ -287,7 +293,7 @@ class PedanticTimedelta(timedelta):
             s_scale = 1.0  # secs_in_second
         return tm_unit, is_abbrev, s_scale
 
-    def time_format_scaled(self):
+    def time_format_scaled(self, field_width=0, precision=2, abbreviate=False):
         """Format time duration using appropriate precision and time unit.
 
         Format the instance's elapsed time using the largest single
@@ -295,20 +301,29 @@ class PedanticTimedelta(timedelta):
         is less than a single second, in which case the value will be
         expressed in seconds).
 
+        :param field_width: Total field width, including decimal point.
+        :param precision: Time delta float value precision.
+        :param abbreviate: Whether to use 2- or 3-character abbreviations.
+
+        :type field_width: int
+        :type precision: int
+        :type abbreviate: bool
+
         :return: tuple containing (formatted time, seconds in unit, time unit)
         :rtype: tuple(string, seconds-per-unit, time-unit)
 
         >>> PedanticTimedelta(days=0.33).time_format_scaled()
         ('7.92 hours', 3600.0, 'hour')
         """
-        tm_unit, is_abbrev, s_scale = self._units_and_scale()
+        tm_unit, is_abbrev, s_scale = self._units_and_scale(abbreviate)
         adj_time = self.total_seconds() / s_scale
         # (lb): I timeit'd Inflector().pluralize vs. inflectr=Inflector();
         # inflectr.pluralize. Creating object ahead of time is not faster.
         tm_units = Inflector(English).conditional_plural(adj_time, tm_unit)
         if is_abbrev:
             tm_units += '.'
-        time_fmtd = ('{:.02f} {}'.format(adj_time, tm_units))
+        template = '{{:{}.{}f}} {{}}'.format(field_width, precision)
+        time_fmtd = (template.format(adj_time, tm_units))
         return time_fmtd, s_scale, tm_unit
 
     # ***
