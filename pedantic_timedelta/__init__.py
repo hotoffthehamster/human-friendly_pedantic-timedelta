@@ -114,7 +114,7 @@ class PedanticTimedelta(timedelta):
         epochs=0,
         eras=0,
         eons=0,
-        gigaannums=0
+        gigaannums=0,
     ):
         """Create new PedanticTimedelta instance.
 
