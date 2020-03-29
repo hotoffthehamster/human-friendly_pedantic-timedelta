@@ -35,7 +35,7 @@ codecov >= 2.0.15
 
 # - "travel through time by mocking the datetime module"
 #   https://github.com/spulec/freezegun
-#freezegun >= 0.3.14
+freezegun >= 0.3.14
 
 # *** Fakers and Factories.
 
