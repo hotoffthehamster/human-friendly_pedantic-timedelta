@@ -21,7 +21,7 @@ from setuptools import find_packages, setup
 requirements = [
     # Vocabulary word pluralizer.
     #  https://github.com/ixmatus/inflector
-    'Inflector',
+    'Inflector >= 3.0.1, < 4',
 ]
 
 # *** Minimal setup() function -- Prefer using config where possible.
