@@ -4,6 +4,11 @@ History
 
 .. :changelog:
 
+2.0.0 (2020-03-29)
+==================
+
+- Add format options: field_width:, precision, and abbreviate.
+
 1.0.1 (2020-01-26)
 ==================
 
