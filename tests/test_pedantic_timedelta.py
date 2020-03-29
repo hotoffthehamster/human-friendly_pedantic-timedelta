@@ -63,12 +63,15 @@ class TestPedanticTimedeltaTimeFormatElapsed(object):
 
 @freeze_time('2015-12-10 12:30')
 class TestPedanticTimedeltaTimeFormatScaledSeconds(object):
-    @pytest.mark.parametrize(('seconds', 'exp_fmmtd', 'exp_scale', 'exp_units'), [
-        (86400 / 2, '12.00 hours', 3600, 'hour'),
-        (31556925.1296, '1.00 year', 31556925.1296, 'year'),
-        (86400 * 40, '1.31 months', 2629743.7608, 'month'),
-        (1.5, '1.50 secs.', 1.0, 'sec'),
-    ])
+    @pytest.mark.parametrize(
+        ('seconds', 'exp_fmmtd', 'exp_scale', 'exp_units'),
+        [
+            (86400 / 2, '12.00 hours', 3600, 'hour'),
+            (31556925.1296, '1.00 year', 31556925.1296, 'year'),
+            (86400 * 40, '1.31 months', 2629743.7608, 'month'),
+            (1.5, '1.50 secs.', 1.0, 'sec'),
+        ],
+    )
     def test_time_format_elapsed(self, seconds, exp_fmmtd, exp_scale, exp_units):
         """Ensure that output matches expectation."""
         (
@@ -93,4 +96,59 @@ class TestPedanticTimedeltaClassless(object):
     def test_time_format_elapsed(self):
         """Ensure that output matches expectation."""
         PedanticTimedelta.__new__(cls=None)
+
+
+@freeze_time('2015-12-10 12:30')
+class TestPedanticTimedeltaTimeFormatScaledOptions(object):
+    @pytest.mark.parametrize(
+        (
+            'field_width',
+            'precision',
+            'abbreviate',
+            'seconds',
+            'exp_fmmtd',
+            'exp_scale',
+            'exp_units',
+        ),
+        [
+            (0, 3, PedanticTimedelta.UNIT_NAME_ONECH,
+             86400 / 24 / 8 / 4, '1.875 M', 60, 'M'),
+            #
+            (6, 2, PedanticTimedelta.UNIT_NAME_FULL,
+             10 / 3, '  3.33 seconds', 1, 'second'),
+            (8, 2, PedanticTimedelta.UNIT_NAME_ONECH,
+             10 / 3, '    3.33 S', 1, 'S'),
+            (0, 2, PedanticTimedelta.UNIT_NAME_TWOCH,
+             10 / 3, '3.33 s.', 1, 's.'),
+            (0, 2, PedanticTimedelta.UNIT_NAME_TREYWIDE,
+             10 / 3, '3.33 sec', 1, 'sec'),
+            (0, 2, PedanticTimedelta.UNIT_NAME_FOURWIDE,
+             10 / 3, '3.33 secs', 1, 'secs'),
+            (0, 2, PedanticTimedelta.UNIT_NAME_BRIEF,
+             10 / 3, '3.33 secs.', 1, 'sec'),
+            (0, 2, PedanticTimedelta.UNIT_NAME_ABBREV,
+             10 / 3, '3.33 secs.', 1, 'sec'),
+        ],
+    )
+    def test_time_format_elapsed_options(
+        self,
+        field_width,
+        precision,
+        abbreviate,
+        seconds,
+        exp_fmmtd,
+        exp_scale,
+        exp_units,
+    ):
+        """Ensure that output matches expectation."""
+        (
+            tm_fmttd, tm_scale, tm_units,
+        ) = PedanticTimedelta(seconds=seconds).time_format_scaled(
+            field_width=field_width,
+            precision=precision,
+            abbreviate=abbreviate,
+        )
+        assert tm_fmttd == exp_fmmtd
+        assert tm_scale == exp_scale
+        assert tm_units == exp_units
 

@@ -90,8 +90,8 @@ class PedanticTimedelta(timedelta):
         'month':  (_('month'),  _('m'), _('mo'), _('mon'), _('mos.'), _('mon'), _('month')), # noqa
         'day':    (_('day'),    _('d'), _('dā'), _('day'), _('days'), _('day'), _('day')),   # noqa
         'hour':   (_('hour'),   _('H'), _('hr'), _('our'), _('hrs.'), _('hr'),  _('hour')),  # noqa
-        'minute': (_('minute'), _('M'), _('m.'), _('min'), _('mins'), _('min'), _('min')),
-        'second': (_('second'), _('S'), _('s.'), _('sec'), _('secs'), _('sec'), _('sec')),
+        'minute': (_('minute'), _('M'), _('m.'), _('min'), _('mins'), _('min'), _('min')),   # noqa
+        'second': (_('second'), _('S'), _('s.'), _('sec'), _('secs'), _('sec'), _('sec')),   # noqa
     }
     UNIT_NAME_FULL = 0
     UNIT_NAME_ONECH = 1
