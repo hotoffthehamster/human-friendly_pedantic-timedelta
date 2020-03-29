@@ -23,7 +23,7 @@ Human-Friendly Pedantic ``timedelta``
   :alt: PyPI Release Status
 
 .. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
-  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/develop/LICENSE
+  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/master/LICENSE
   :alt: License Status
 
 A Python ``timedelta`` wrapper which provides pedantic string formatting.
