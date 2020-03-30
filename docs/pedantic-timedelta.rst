@@ -2,8 +2,8 @@
 pedantic_timedelta package
 ##########################
 
-Module Contents
----------------
+Package Module Contents
+-----------------------
 
 .. automodule:: pedantic_timedelta
     :members:
