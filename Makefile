@@ -184,9 +184,15 @@ docs: docs-html
 .PHONY: docs
 
 docs-html: venvforce
-	/bin/rm -f docs/$(PROJNAME).rst
-	/bin/rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ $(PROJNAME)
+	# Using custom docs/pedantic-timedelta.rst,
+	# so skip sphinx-apidoc, which generates both
+	# docs/modules.rst and docs/pedantic_timedelta.rst.
+	#  /bin/rm -f docs/$(PROJNAME).rst
+	#  /bin/rm -f docs/modules.rst
+	#  sphinx-apidoc -o docs/ $(PROJNAME)
+	# but I'm leaving here because this call is in every other
+	# PyPI Makefile I use; and also to remind you what to call
+	# if you need to regnerate docs/pedantic-timedelta.rst.
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 .PHONY: docs-html
