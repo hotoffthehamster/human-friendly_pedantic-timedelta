@@ -44,8 +44,6 @@ sys.path.insert(0, project_root)
 # ┃                                                                     ┃
 # ┃ YOU/DEV: Customize this import and these strings for your project.  ┃
 
-import pedantic_timedelta
-
 project_dist = 'human-friendly_pedantic-timedelta'
 package_name = 'pedantic_timedelta'
 project_ghuser = 'hotoffthehamster'
