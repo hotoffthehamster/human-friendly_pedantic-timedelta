@@ -375,7 +375,7 @@ class PedanticTimedelta(timedelta):
         adj_time = self.total_seconds() / s_scale
         tm_units = self._pluralize_periodify(adj_time, tm_unit, lkup_unit, abbreviate)
         template = '{{:{}.{}f}} {{}}'.format(field_width, precision)
-        time_fmtd = (template.format(adj_time, tm_units))
+        time_fmtd = template.format(adj_time, tm_units)
         return time_fmtd, s_scale, tm_unit
 
     # ***
