@@ -86,6 +86,7 @@ class PedanticTimedelta(timedelta):
     """SECS_IN_YEAR / 12.0"""
 
     UNIT_NAMES = {
+        # indices:    0            1       2        3         4          5         6
         'year':   (_('year'),   _('y'), _('yr'), _('yēr'), _('yrs.'), _('yr'),  _('year')),  # noqa
         'month':  (_('month'),  _('m'), _('mo'), _('mon'), _('mos.'), _('mon'), _('month')), # noqa
         'day':    (_('day'),    _('d'), _('dā'), _('day'), _('days'), _('day'), _('day')),   # noqa
