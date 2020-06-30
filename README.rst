@@ -2,8 +2,8 @@
 Human-Friendly Pedantic ``timedelta``
 #####################################
 
-.. image:: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta.svg?branch=develop
-  :target: https://travis-ci.org/hotoffthehamster/human-friendly_pedantic-timedelta
+.. image:: https://travis-ci.com/hotoffthehamster/human-friendly_pedantic-timedelta.svg?branch=develop
+  :target: https://travis-ci.com/hotoffthehamster/human-friendly_pedantic-timedelta
   :alt: Build Status
 
 .. image:: https://codecov.io/gh/hotoffthehamster/human-friendly_pedantic-timedelta/branch/develop/graph/badge.svg
@@ -47,7 +47,7 @@ Simple example::
 |
 
 .. image:: https://raw.githubusercontent.com/hotoffthehamster/human-friendly_pedantic-timedelta/master/docs/assets/hfpt-logo-lrg.png
-   :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/develop/authors.html#graphics-shout-out
+   :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/authors.html#graphics-shout-out
    :align: center
    :alt: "Penrose Hourglass"
 
