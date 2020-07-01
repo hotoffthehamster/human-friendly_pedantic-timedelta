@@ -18,6 +18,7 @@ recursive-exclude docs pedantic_timedelta*.rst
 # Include the HFPT logo assets.
 include docs/assets/*.png
 recursive-include docs/docs/assets *.png
+exclude docs/docs/assets
 
 include LICENSE
 include Makefile
