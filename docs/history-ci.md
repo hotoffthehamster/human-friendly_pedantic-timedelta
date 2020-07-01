@@ -2,6 +2,12 @@
 
 [comment]: # DEV: release-ghub-pypi scrapes Markdown from the first section below for the GitHub release.
 
+## 2.0.11 (2020-07-01)
+
+- Update docs and DX/CI tooling.
+
+  (No new features or bugs fixed.)
+
 ## 2.0.0 (2020-03-29)
 
 - Add format options: field_width:, precision, and abbreviate.
