@@ -20,7 +20,7 @@ Graphics Shout-out
 ==================
 
 .. |pedalta| replace:: *Pedantic Timedelta*
-.. _pedalta: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/master/docs/assets/hfpt-logo-lrg.png
+.. _pedalta: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/release/docs/assets/hfpt-logo-lrg.png
 
 - |pedalta|_
   illustration by `Landon Bouma <https://github.com/landonb>`_

@@ -23,7 +23,7 @@ Human-Friendly Pedantic ``timedelta``
   :alt: PyPI Release Status
 
 .. image:: https://img.shields.io/github/license/hotoffthehamster/human-friendly_pedantic-timedelta.svg?style=flat
-  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/master/LICENSE
+  :target: https://github.com/hotoffthehamster/human-friendly_pedantic-timedelta/blob/release/LICENSE
   :alt: License Status
 
 A Python ``timedelta`` wrapper which provides pedantic string formatting.
@@ -46,7 +46,7 @@ Simple example::
 
 |
 
-.. image:: https://raw.githubusercontent.com/hotoffthehamster/human-friendly_pedantic-timedelta/master/docs/assets/hfpt-logo-lrg.png
+.. image:: https://raw.githubusercontent.com/hotoffthehamster/human-friendly_pedantic-timedelta/release/docs/assets/hfpt-logo-lrg.png
    :target: https://human-friendly-pedantic-timedelta.readthedocs.io/en/latest/authors.html#graphics-shout-out
    :align: center
    :alt: "Penrose Hourglass"
